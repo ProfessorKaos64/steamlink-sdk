@@ -3,6 +3,7 @@
 
 source ../../setenv.sh
 
+export TOP="${PWD}"
 export DESTDIR="${PWD}/steamlink/apps/retroarch"
 export SRC="${PWD}/retroarch-src"
 
@@ -16,15 +17,67 @@ done
 # obtain source code
 git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
 
-# Enter SRC dir for build
-cd "${SRC}"
+# Configure build dependencies
+#
+MARVELL_SDK_PATH=$(cd ../.. && pwd)
+MARVELL_ROOTFS="${MARVELL_SDK_PATH}/rootfs"
+SOC_BUILD=armv7a-cros-linux-gnueabi
+
+DEPS_INSTALL_PATH="${MARVELL_SDK_PATH}/retroarch-deps/${SOC_BUILD}"
+DEPS_CONFIG_SITE="${DEPS_INSTALL_PATH}/share/config.site"
+DEPS_TOOLCHAIN_CMAKE="${DEPS_INSTALL_PATH}/share/Toolchain.cmake"
+
+if [ ! -f "${SRC}/tools/depends/Makefile.include" ]; then
+	# Run this in a subshell so we don't set CC and so forth yet
+	(
+		source "${TOP}/../../setenv.sh"
+
+		pushd "${SRC}"
+		./configure --with-toolchain="${MARVELL_SDK_PATH}/toolchain" --prefix="${MARVELL_SDK_PATH}/retroarch-deps" \
+		--host=${SOC_BUILD} --disable-vg --disable-opengl --disable-gles --disable-fbo --disable-egl \
+		--enable-dispmanx --disable-x11 --disable-sdl2 --enable-floathard --disable-ffmpeg \
+		--disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
+		--disable-freetype --disable-7zip --disable-libxml2  --prefix=/usr || rm -rf "${SRC}" && exit 2
+
+
+		cat >"${DEPS_CONFIG_SITE}.new" << __EOF__
+MARVELL_SDK_PATH="${MARVELL_SDK_PATH}"
+MARVELL_ROOTFS="${MARVELL_ROOTFS}"
+
+__EOF__
+		sed \
+			-e "s,^CC=.*,CC=\"${MARVELL_SDK_PATH}/toolchain/bin/${CC}\"," \
+			-e "s,^CXX=.*,CXX=\"${MARVELL_SDK_PATH}/toolchain/bin/${CXX}\"," \
+			-e "s,^CPP=.*,CPP=\"\${CC} -E\"," \
+			"${DEPS_CONFIG_SITE}" \
+			>>"${DEPS_CONFIG_SITE}.new"
+		mv "${DEPS_CONFIG_SITE}.new" "${DEPS_CONFIG_SITE}"
+
+		sed -i \
+			-e "s,^SET(CMAKE_C_FLAGS .*,SET(CMAKE_C_FLAGS \" --sysroot=${MARVELL_ROOTFS} -marm -mfloat-abi=hard -isystem ${DEPS_INSTALL_PATH}/include\")," \
+			-e "s,^SET(CMAKE_CXX_FLAGS .*,SET(CMAKE_CXX_FLAGS \" --sysroot=${MARVELL_ROOTFS} -marm -mfloat-abi=hard -g -O2 -std=gnu++11 -isystem ${DEPS_INSTALL_PATH}/include\")," \
+			"${DEPS_TOOLCHAIN_CMAKE}"
+
+		sed -i \
+			-e "s,^CPU=.*,CPU=armv7-a," \
+			-e "s,^OS=.*,OS=linux," \
+			-e "s,^CC=.*,CC=${MARVELL_SDK_PATH}/toolchain/bin/${CC}," \
+			-e "s,^CXX=.*,CXX=${MARVELL_SDK_PATH}/toolchain/bin/${CXX}," \
+			-e "s,^CPP=.*,CPP=\$(CC) -E," \
+			Makefile.*
+	)
+fi
+
+# exit for now, testing
+exit 1
 
 # Configure
 # See example: https://www.raspberrypi.org/forums/viewtopic.php?t=56070
 # See similar example project: steamlink-sdk/external/util-linux-2.25/build_steamlink.sh
 # The last line is the default options exported by setenv.sh
 
-./configure --disable-vg --disable-opengl --disable-gles --disable-fbo --disable-egl \
+./configure --with-toolchain="${MARVELL_SDK_PATH}/toolchain" --disable-vg --disable-opengl \
+--disable-gles --disable-fbo --disable-egl \
 --enable-dispmanx --disable-x11 --disable-sdl2 --enable-floathard --disable-ffmpeg \
 --disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
 --disable-freetype --disable-7zip --disable-libxml2  --prefix=/usr || rm -rf "${SRC}" && exit 2
