@@ -11,11 +11,11 @@ int main(void) { puts("Hai world!"); return 0; }
 EOF
 
 cc_works=0
-if [ "$CC" ]; then
-	$CC -o "$TEMP_EXE" "$TEMP_C" && cc_works=1
+if [ "${CC}" ]; then
+	${CC} -o "$TEMP_EXE" "$TEMP_C" && cc_works=1
 else
 	for CC in ${CC:=$(which ${CROSS_COMPILE}gcc ${CROSS_COMPILE}cc ${CROSS_COMPILE}clang)} ''; do
-		$CC -o "$TEMP_EXE" "$TEMP_C" && cc_works=1 && break
+		${CC} -o "$TEMP_EXE" "$TEMP_C" && cc_works=1 && break
 	done
 fi
 
@@ -24,7 +24,7 @@ rm -f "$TEMP_C" "$TEMP_EXE"
 cc_status='does not work'
 if [ "$cc_works" = '1' ]; then
 	cc_status='works'
-elif [ -z $CC ]; then
+elif [ -z ${CC} ]; then
 	cc_status='not found'
 fi
 
