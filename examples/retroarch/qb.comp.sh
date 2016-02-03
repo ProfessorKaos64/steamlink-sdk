@@ -11,7 +11,7 @@ int main(void) { puts("Hai world!"); return 0; }
 EOF
 
 cc_works=0
-if [ "${CC}" ]; then
+if [ ${CC} ]; then
 	${CC} -o "$TEMP_EXE" "$TEMP_C" && cc_works=1
 else
 	for CC in ${CC:=$(which ${CROSS_COMPILE}gcc ${CROSS_COMPILE}cc ${CROSS_COMPILE}clang)} ''; do
