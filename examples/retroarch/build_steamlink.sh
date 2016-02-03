@@ -22,12 +22,11 @@ fi
 # See similar example project: steamlink-sdk/external/util-linux-2.25/build_steamlink.sh
 # The last line is the default options exported by setenv.sh
 
-./configure ./configure $STEAMLINK_CONFIGURE_OPTS \
---disable-vg --disable-opengl --disable-gles --disable-fbo --disable-egl \
+./configure --disable-vg --disable-opengl --disable-gles --disable-fbo --disable-egl \
 --enable-dispmanx --disable-x11 --disable-sdl2 --enable-floathard --disable-ffmpeg \
 --disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
 --disable-freetype --disable-7zip --disable-libxml2  \
---prefix=/usr --sysconfdir=/etc --localstatedir=/var --with-sysroot=$MARVELL_ROOTFS
+--prefix=/usr --sysconfdir=/etc --localstatedir=/var --with-sysroot=$MARVELL_ROOTFS || exit 2
 
 # Optimizations possible?
 # For example 'CFLAGS = -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s'
