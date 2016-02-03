@@ -17,14 +17,11 @@ done
 # obtain source code
 git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
 
-# Retroarch tests against cc and clang as well
 # For refernce:
 # TOOLCHAIN_PATH=$MARVELL_SDK_PATH/toolchain/bin
 # PATH=$TOOLCHAIN_PATH:$MARVELL_SDK_PATH/bin:$PATH
 # MARVELL_SDK_PATH=$absolute_path
 # MARVELL_ROOTFS=$MARVELL_SDK_PATH/rootfs
-
-export CC="${CROSS}cc --sysroot=$MARVELL_ROOTFS -marm -mfloat-abi=hard"
 
 # Enter source dir
 cd "${SRC}"
