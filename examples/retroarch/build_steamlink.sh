@@ -11,7 +11,6 @@ export SRC="${PWD}/retroarch-src"
 for dir in ${DESTDIR} ${SRC} ; do
 	rm -rf "${dir}"
 	mkdir -p "${dir}"
-	echo "Placeholder for ${dir} directory" >"${DESTDIR}/${dir}/dir.txt"
 done
 
 # obtain source code
@@ -29,7 +28,7 @@ cd "${SRC}"
 --enable-dispmanx --disable-x11 --disable-sdl2 --enable-floathard --disable-ffmpeg \
 --disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
 --disable-freetype --disable-7zip --disable-libxml2  \
---prefix=/usr --localstatedir=/var --with-sysroot=$MARVELL_ROOTFS || rm -rf "${SRC}" && exit 2
+--prefix=/usr --with-sysroot=$MARVELL_ROOTFS || rm -rf "${SRC}" && exit 2
 
 # Optimizations possible?
 # For example 'CFLAGS = -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s'
