@@ -28,14 +28,14 @@ cd "${SRC}"
 ./configure --disable-vg --disable-opengl --disable-gles --disable-fbo --disable-egl \
 --enable-dispmanx --disable-x11 --disable-sdl2 --enable-floathard --disable-ffmpeg \
 --disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
---disable-freetype --disable-7zip --disable-libxml2  --prefix=/usr || rm -rf "${SRC}" && exit 2
+--disable-freetype --disable-7zip --disable-libxml2  --prefix=/usr || exit 2
 
 # Optimizations possible?
 # For example 'CFLAGS = -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s'
 
 # Build files in build dir
 steamlink_make_clean
-make V=1 || rm -rf "${SRC}" && exit 2
+make V=1 || exit 2
 steamlink_make_install
 
 #for dir in dir1 dir2 dir3; do
