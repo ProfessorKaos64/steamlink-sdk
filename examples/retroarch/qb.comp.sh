@@ -12,10 +12,10 @@ EOF
 
 cc_works=0
 if [ "$CC" ]; then
-	"$CC" -o "$TEMP_EXE" "$TEMP_C" >/dev/null 2>&1 && cc_works=1
+	"$CC" -o "$TEMP_EXE" "$TEMP_C" && cc_works=1
 else
-	for CC in ${CC:=$(which ${CROSS_COMPILE}gcc ${CROSS_COMPILE}cc ${CROSS_COMPILE}clang 2>/dev/null)} ''; do
-		"$CC" -o "$TEMP_EXE" "$TEMP_C" >/dev/null 2>&1 && cc_works=1 && break
+	for CC in ${CC:=$(which ${CROSS_COMPILE}gcc ${CROSS_COMPILE}cc ${CROSS_COMPILE}clang)} ''; do
+		"$CC" -o "$TEMP_EXE" "$TEMP_C" && cc_works=1 && break
 	done
 fi
 
