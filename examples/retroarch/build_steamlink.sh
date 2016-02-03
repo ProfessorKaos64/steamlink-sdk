@@ -33,8 +33,7 @@ if [ ! -f "${SRC}/tools/depends/Makefile.include" ]; then
 		source "${TOP}/../../setenv.sh"
 
 		pushd "${SRC}"
-		./configure --with-toolchain="${MARVELL_SDK_PATH}/toolchain" --prefix="${MARVELL_SDK_PATH}/retroarch-deps" \
-		--host=${SOC_BUILD} --disable-vg --disable-opengl --disable-gles --disable-fbo --disable-egl \
+		./configure --disable-vg --disable-opengl --disable-gles --disable-fbo --disable-egl \
 		--enable-dispmanx --disable-x11 --disable-sdl2 --enable-floathard --disable-ffmpeg \
 		--disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
 		--disable-freetype --disable-7zip --disable-libxml2  --prefix=/usr || rm -rf "${SRC}" && exit 2
