@@ -17,6 +17,9 @@ else
   git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
 fi
 
+# Enter SRC dir for build
+cd "${SRC}"
+
 # Configure
 # See example: https://www.raspberrypi.org/forums/viewtopic.php?t=56070
 # See similar example project: steamlink-sdk/external/util-linux-2.25/build_steamlink.sh
