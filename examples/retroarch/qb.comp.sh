@@ -66,14 +66,15 @@ if [ "$cxx_works" = '0' ] && [ "$USE_LANG_CXX" = 'yes' ]; then
 	exit 1
 fi
 
-if [ "$OS" = "Win32" ]; then
-	echobuf="Checking for windres"
-	if [ -z ${WINDRES} ]; then
-		WINDRES=$(which ${CROSS_COMPILE}windres)
-		[ ${WINDRES} ] || { echo "$echobuf ... Not found. Exiting."; exit 1; }
-	fi
-	echo "$echobuf ... $WINDRES"
-fi
+# we are not cross compiling for windows, try without windres
+#if [ "$OS" = "Win32" ]; then
+#	echobuf="Checking for windres"
+#	if [ -z ${WINDRES} ]; then
+#		WINDRES=$(which ${CROSS_COMPILE}windres)
+#		[ ${WINDRES} ] || { echo "$echobuf ... Not found. Exiting."; exit 1; }
+#	fi
+#	echo "$echobuf ... $WINDRES"
+#fi
 
 [ -n "$PKG_CONF_PATH" ] || {
 	PKG_CONF_PATH="none"
