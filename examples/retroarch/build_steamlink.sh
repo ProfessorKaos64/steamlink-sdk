@@ -6,16 +6,16 @@ source ../../setenv.sh
 export DESTDIR="${PWD}/steamlink/apps/retroarch"
 export SRC="${PWD}/retroarch-src"
 
-# Create intall dir
-mkdir -p "${DESTDIR}"
-mkdir -p "${SRC}"
+# Create intall dirs
 
-if [ ! -d "${SRC}" ]; then
-	git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
-else
-  rm -rf "${SRC}"
-  git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
-fi
+for dir in ${DESTDIR} ${SRC} ; do
+	rm -rf "${dir}"
+	mkdir -p "${dir}"
+	echo "Placeholder for ${dir} directory" >"${DESTDIR}/${dir}/dir.txt"
+done
+
+# obtain source code
+git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
 
 # Enter SRC dir for build
 cd "${SRC}"
@@ -29,14 +29,14 @@ cd "${SRC}"
 --enable-dispmanx --disable-x11 --disable-sdl2 --enable-floathard --disable-ffmpeg \
 --disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
 --disable-freetype --disable-7zip --disable-libxml2  \
---prefix=/usr --localstatedir=/var --with-sysroot=$MARVELL_ROOTFS || exit 2
+--prefix=/usr --localstatedir=/var --with-sysroot=$MARVELL_ROOTFS || rm -rf "${SRC}" && exit 2
 
 # Optimizations possible?
 # For example 'CFLAGS = -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s'
 
 # Build files in build dir
 steamlink_make_clean
-make V=1 || exit 2
+make V=1 || rm -rf "${SRC}" && exit 2
 steamlink_make_install
 
 #for dir in dir1 dir2 dir3; do
