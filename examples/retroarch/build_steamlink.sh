@@ -17,6 +17,10 @@ done
 # obtain source code
 git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
 
+# Retroarch tests against cc and clang as well
+export CC="${CROSS}cc --sysroot=$MARVELL_ROOTFS -marm -mfloat-abi=hard"
+export CC="${CROSS}clang --sysroot=$MARVELL_ROOTFS -marm -mfloat-abi=hard"
+
 # Enter source dir
 cd "${SRC}"
 
