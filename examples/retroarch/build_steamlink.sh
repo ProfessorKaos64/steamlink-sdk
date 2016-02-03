@@ -4,17 +4,18 @@
 source ../../setenv.sh
 
 export DESTDIR="${PWD}/steamlink/apps/retroarch"
-export BUILDDIR="${PWD}/builddir"
+export SRC="${PWD}/retroarch-src"
 
 # Create intall dir
 mkdir -p "${DESTDIR}"
-mkdir -p "${BUILDDIR}"
+mkdir -p "${SRC}"
 
-# pull build files
-cd "${BUILDDIR}"
-wget --no-clobber https://github.com/libretro/RetroArch/archive/master.zip
-unzip master.zip
-rm -f master.zip
+if [ ! -d "${SRC}" ]; then
+	git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
+else
+  rm -rf "${SRC}"
+  git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
+fi
 
 # Configure
 # See example: https://www.raspberrypi.org/forums/viewtopic.php?t=56070
