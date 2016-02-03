@@ -23,6 +23,9 @@ git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
 # MARVELL_SDK_PATH=$absolute_path
 # MARVELL_ROOTFS=$MARVELL_SDK_PATH/rootfs
 
+# Modify this file to not hide output so it can be debugged
+cp "${TOP}/qb.comp.sh" "${SRC}/qb"
+
 # Enter source dir
 cd "${SRC}"
 
