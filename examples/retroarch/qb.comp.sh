@@ -12,10 +12,10 @@ EOF
 
 cc_works=0
 if [ ${CC} ]; then
-	${CC} -o "$TEMP_EXE" "$TEMP_C" && cc_works=1
+	${CC} -o "$TEMP_EXE" "$TEMP_C" >/dev/null 2>&1 && cc_works=1
 else
-	for CC in ${CC:=$(which ${CROSS_COMPILE}gcc ${CROSS_COMPILE}cc ${CROSS_COMPILE}clang)} ''; do
-		${CC} -o "$TEMP_EXE" "$TEMP_C" && cc_works=1 && break
+	for CC in ${CC:=$(which ${CROSS_COMPILE}gcc ${CROSS_COMPILE}cc ${CROSS_COMPILE}clang 2>/dev/null)} ''; do
+		${CC} -o "$TEMP_EXE" "$TEMP_C" >/dev/null 2>&1 && cc_works=1 && break
 	done
 fi
 
@@ -42,11 +42,11 @@ int main() { std::cout << "Hai guise" << std::endl; return 0; }
 EOF
 
 cxx_works=0
-if [ "$CXX" ]; then
-	"$CXX" -o "$TEMP_EXE" "$TEMP_CXX" >/dev/null 2>&1 && cxx_works=1
+if [ ${CXX} ]; then
+	${CXX} -o "$TEMP_EXE" "$TEMP_CXX" >/dev/null 2>&1 && cxx_works=1
 else
 	for CXX in ${CXX:=$(which ${CROSS_COMPILE}g++ ${CROSS_COMPILE}c++ ${CROSS_COMPILE}clang++ 2>/dev/null)} ''; do
-		"$CXX" -o "$TEMP_EXE" "$TEMP_CXX" >/dev/null 2>&1 && cxx_works=1 && break
+		${CXX} -o "$TEMP_EXE" "$TEMP_CXX" >/dev/null 2>&1 && cxx_works=1 && break
 	done
 fi
 
@@ -55,7 +55,7 @@ rm -f "$TEMP_CXX" "$TEMP_EXE"
 cxx_status='does not work'
 if [ "$cxx_works" = '1' ]; then
 	cxx_status='works'
-elif [ -z "$CXX" ]; then
+elif [ -z ${CXX} ]; then
 	cxx_status='not found'
 fi
 
