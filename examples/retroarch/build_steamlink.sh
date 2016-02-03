@@ -17,6 +17,9 @@ done
 # obtain source code
 git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
 
+# Enter source dir
+cd "${SRC}"
+
 # Configure
 # See example: https://www.raspberrypi.org/forums/viewtopic.php?t=56070
 # See similar example project: steamlink-sdk/external/util-linux-2.25/build_steamlink.sh
