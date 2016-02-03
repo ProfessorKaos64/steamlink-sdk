@@ -68,9 +68,9 @@ fi
 
 if [ "$OS" = "Win32" ]; then
 	echobuf="Checking for windres"
-	if [ -z ${WINDRES}" ]; then
+	if [ -z ${WINDRES} ]; then
 		WINDRES=$(which ${CROSS_COMPILE}windres)
-		[ ${WINDRES}" ] || { echo "$echobuf ... Not found. Exiting."; exit 1; }
+		[ ${WINDRES} ] || { echo "$echobuf ... Not found. Exiting."; exit 1; }
 	fi
 	echo "$echobuf ... $WINDRES"
 fi
