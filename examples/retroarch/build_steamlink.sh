@@ -25,8 +25,7 @@ cd "${SRC}"
 # See similar example project: steamlink-sdk/external/util-linux-2.25/build_steamlink.sh
 # The last line is the default options exported by setenv.sh
 
-./configure --with-toolchain="${MARVELL_SDK_PATH}/toolchain" --disable-vg --disable-opengl \
---disable-gles --disable-fbo --disable-egl \
+./configure --disable-vg --disable-opengl --disable-gles --disable-fbo --disable-egl \
 --enable-dispmanx --disable-x11 --disable-sdl2 --enable-floathard --disable-ffmpeg \
 --disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
 --disable-freetype --disable-7zip --disable-libxml2  --prefix=/usr || rm -rf "${SRC}" && exit 2
