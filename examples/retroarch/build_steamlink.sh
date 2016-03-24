@@ -26,8 +26,14 @@ git clone --recursive https://github.com/libretro/RetroArch.git "${SRC}" || exit
 # MARVELL_SDK_PATH=$absolute_path
 # MARVELL_ROOTFS=$MARVELL_SDK_PATH/rootfs
 
-# Modify this file to not hide output so it can be debugged
+# Modify these files to not hide output so it can be debugged
+# Quotes and globs seem to interfere with how compilers are set
+# See: https://github.com/ValveSoftware/steamlink-sdk/issues/18
+
 cp "${TOP}/qb.comp.sh" "${SRC}/qb"
+cp "${TOP}/qb.libs.sh" "${SRC}/qb"
+cp "${TOP}/qb.system.sh" "${SRC}/qb"
+cp "${TOP}/qb.params.sh" "${SRC}/qb"
 
 # Enter source dir
 cd "${SRC}"
