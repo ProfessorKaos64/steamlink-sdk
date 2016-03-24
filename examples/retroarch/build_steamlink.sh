@@ -15,7 +15,10 @@ for dir in ${DESTDIR} ${SRC} ; do
 done
 
 # obtain source code
-git clone https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
+# Try using libretro super for manual compilation here?
+
+git clone --recursive https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
+# git clone --recursive https://github.com/libretro/libretro-super "${SRC}" || exit 1
 
 # For refernce:
 # TOOLCHAIN_PATH=$MARVELL_SDK_PATH/toolchain/bin
