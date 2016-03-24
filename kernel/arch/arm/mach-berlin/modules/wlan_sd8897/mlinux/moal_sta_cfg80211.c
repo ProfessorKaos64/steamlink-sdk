@@ -3328,49 +3328,48 @@ woal_cfg80211_dump_survey(struct wiphy *wiphy, struct net_device *dev,
 	int ret = -ENOENT;
 	moal_private *priv = (moal_private *)woal_get_netdev_priv(dev);
 	enum ieee80211_band band;
-
 	ChanStatistics_t *pchan_stats = NULL;
 	mlan_scan_resp scan_resp;
 
 	ENTER();
 	PRINTM(MIOCTL, "dump_survey idx=%d\n", idx);
 
-		memset(&scan_resp, 0, sizeof(scan_resp));
-		if (MLAN_STATUS_SUCCESS != woal_get_scan_table(priv,
-							       MOAL_IOCTL_WAIT,
-							       &scan_resp)) {
-			ret = -EFAULT;
-			goto done;
-		}
-		pchan_stats = (ChanStatistics_t *)scan_resp.pchan_stats;
-		if (idx >= scan_resp.num_in_chan_stats)
-			goto done;
-		if (!pchan_stats[idx].cca_scan_duration)
-			goto done;
-		ret = 0;
+	memset(&scan_resp, 0, sizeof(scan_resp));
+	if (MLAN_STATUS_SUCCESS != woal_get_scan_table(priv,
+						       MOAL_IOCTL_WAIT,
+						       &scan_resp)) {
+		ret = -EFAULT;
+		goto done;
+	}
+	pchan_stats = (ChanStatistics_t *)scan_resp.pchan_stats;
+	if (idx >= scan_resp.num_in_chan_stats)
+		goto done;
+	if (!pchan_stats[idx].cca_scan_duration)
+		goto done;
+	ret = 0;
 	memset(survey, 0, sizeof(*survey));
-		band = woal_band_cfg_to_ieee_band(pchan_stats[idx].bandconfig);
-		survey->channel =
-			ieee80211_get_channel(wiphy,
+	band = woal_band_cfg_to_ieee_band(pchan_stats[idx].bandconfig);
+	survey->channel =
+		ieee80211_get_channel(wiphy,
 				      ieee80211_channel_to_frequency(pchan_stats
 								     [idx].
 								     chan_num
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 39) || defined(COMPAT_WIRELESS)
-					       , band
+								     , band
 #endif
-					      ));
-		survey->filled = SURVEY_INFO_NOISE_DBM;
-		survey->noise = pchan_stats[idx].noise;
+				      ));
+	survey->filled = SURVEY_INFO_NOISE_DBM;
+	survey->noise = pchan_stats[idx].noise;
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 37) || defined(COMPAT_WIRELESS)
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 0, 0)
-		survey->filled |= SURVEY_INFO_TIME | SURVEY_INFO_TIME_BUSY;
-		survey->time = pchan_stats[idx].cca_scan_duration;
-		survey->time_busy = pchan_stats[idx].cca_busy_duration;
+	survey->filled |= SURVEY_INFO_TIME | SURVEY_INFO_TIME_BUSY;
+	survey->time = pchan_stats[idx].cca_scan_duration;
+	survey->time_busy = pchan_stats[idx].cca_busy_duration;
 #else
-		survey->filled |=
+	survey->filled |=
 		SURVEY_INFO_CHANNEL_TIME | SURVEY_INFO_CHANNEL_TIME_BUSY;
-		survey->channel_time = pchan_stats[idx].cca_scan_duration;
-		survey->channel_time_busy = pchan_stats[idx].cca_busy_duration;
+	survey->channel_time = pchan_stats[idx].cca_scan_duration;
+	survey->channel_time_busy = pchan_stats[idx].cca_busy_duration;
 #endif
 #endif
 done:

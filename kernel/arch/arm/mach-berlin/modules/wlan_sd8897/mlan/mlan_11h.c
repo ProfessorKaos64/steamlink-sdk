@@ -3554,15 +3554,15 @@ wlan_11h_radar_detected_handling(mlan_adapter *pmadapter)
 				pmpriv->uap_state_chan_cb.get_chan_callback =
 					wlan_11h_radar_detected_callback;
 
-					/* DFS only in 5GHz */
+				/* DFS only in 5GHz */
 				wlan_11h_update_bandcfg(&pstate_rdh->
 							uap_band_cfg,
 							pstate_rdh->
 							new_channel);
-					PRINTM(MCMD_D,
-					       "RDH_SET_NEW_CHANNEL: uAP band config = 0x%x channel=%d\n",
-					       pstate_rdh->uap_band_cfg,
-					       pstate_rdh->new_channel);
+				PRINTM(MCMD_D,
+				       "RDH_SET_NEW_CHANNEL: uAP band config = 0x%x channel=%d\n",
+				       pstate_rdh->uap_band_cfg,
+				       pstate_rdh->new_channel);
 
 				ret = wlan_uap_set_channel(pmpriv,
 							   pstate_rdh->

@@ -1044,6 +1044,7 @@ process_start:
 			if (pmadapter->data_received && pmadapter->rx_work_flag)
 				mlan_queue_rx_work(pmadapter);
 		}
+
 		/* Need to wake up the card ? */
 		if ((pmadapter->ps_state == PS_STATE_SLEEP) &&
 		    (pmadapter->pm_wakeup_card_req &&
@@ -1358,6 +1359,7 @@ mlan_interrupt(IN t_void *adapter)
 		pmadapter->pm_wakeup_fw_try = MFALSE;
 		pmadapter->ps_state = PS_STATE_AWAKE;
 	}
+
 	wlan_interrupt(pmadapter);
 	LEAVE();
 }

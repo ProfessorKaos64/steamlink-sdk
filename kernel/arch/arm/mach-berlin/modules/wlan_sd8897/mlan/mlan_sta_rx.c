@@ -530,7 +530,7 @@ wlan_ops_sta_process_rx_packet(IN t_void *adapter, IN pmlan_buffer pmbuf)
 	rx_pkt_type = prx_pd->rx_pkt_type;
 	prx_pkt = (RxPacketHdr_t *)((t_u8 *)prx_pd + prx_pd->rx_pkt_offset);
 
-	if ((prx_pd->rx_pkt_offset + prx_pd->rx_pkt_length) >
+	if ((prx_pd->rx_pkt_offset + prx_pd->rx_pkt_length) !=
 	    (t_u16)pmbuf->data_len) {
 		PRINTM(MERROR,
 		       "Wrong rx packet: len=%d,rx_pkt_offset=%d,"

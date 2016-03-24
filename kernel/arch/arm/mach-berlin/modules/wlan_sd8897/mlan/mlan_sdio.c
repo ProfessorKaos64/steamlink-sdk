@@ -510,6 +510,7 @@ wlan_sdio_card_to_host(mlan_adapter *pmadapter,
 {
 	mlan_status ret = MLAN_STATUS_SUCCESS;
 	pmlan_callbacks pcb = &pmadapter->callbacks;
+	t_u32 i=0;
 
 	ENTER();
 
@@ -519,15 +520,24 @@ wlan_sdio_card_to_host(mlan_adapter *pmadapter,
 		goto exit;
 	}
 
-	ret = pcb->moal_read_data_sync(pmadapter->pmoal_handle, pmbuf, ioport,
-				       0);
+	do{
+		ret = pcb->moal_read_data_sync(pmadapter->pmoal_handle, pmbuf, ioport, 0);
 
-	if (ret != MLAN_STATUS_SUCCESS) {
-		PRINTM(MERROR, "card_to_host, read iomem failed: %d\n", ret);
-		pmbuf->status_code = MLAN_ERROR_DATA_RX_FAIL;
-		ret = MLAN_STATUS_FAILURE;
-		goto exit;
-	}
+		if (ret != MLAN_STATUS_SUCCESS) {
+			 PRINTM(MERROR, "wlan: cmd53 read failed: %d ioport=0x%x retry=%d\n", ret, ioport,i);
+			i++;
+			if (MLAN_STATUS_SUCCESS != pcb->moal_write_reg(pmadapter->pmoal_handle,
+				HOST_TO_CARD_EVENT_REG, HOST_TERM_CMD53)) {
+				PRINTM(MERROR, "Set Term cmd53 failed\n");
+			}
+			if (i > MAX_WRITE_IOMEM_RETRY) {
+				pmbuf->status_code = MLAN_ERROR_DATA_RX_FAIL;
+				ret = MLAN_STATUS_FAILURE;
+				goto exit;
+			}
+		}
+	}while (ret == MLAN_STATUS_FAILURE);
+
 	*nb = wlan_le16_to_cpu(*(t_u16 *)(pmbuf->pbuf + pmbuf->data_offset));
 	if (*nb > npayload) {
 		PRINTM(MERROR, "invalid packet, *nb=%d, npayload=%d\n", *nb,
@@ -996,6 +1006,7 @@ wlan_receive_mp_aggr_buf(mlan_adapter *pmadapter)
 	t_u32 pkt_len, pkt_type = 0;
 	t_u8 *curr_ptr;
 	t_u32 cmd53_port = 0;
+	t_u32 i = 0;
 	t_u32 port_count = 0;
 	t_bool new_mode = pmadapter->psdio_device->supports_sdio_new_mode;
 
@@ -1034,12 +1045,24 @@ wlan_receive_mp_aggr_buf(mlan_adapter *pmadapter)
 			      (pmadapter->mpa_rx.ports << 4)) +
 			pmadapter->mpa_rx.start_port;
 	}
-	if (MLAN_STATUS_SUCCESS !=
-	    pcb->moal_read_data_sync(pmadapter->pmoal_handle, &mbuf_aggr,
-				     cmd53_port, 0)) {
-		ret = MLAN_STATUS_FAILURE;
-		goto done;
-	}
+
+    do{
+        ret = pcb->moal_read_data_sync(pmadapter->pmoal_handle, &mbuf_aggr,
+                                         cmd53_port, 0);
+        if(ret != MLAN_STATUS_SUCCESS) {
+			PRINTM(MERROR, "wlan: sdio mp cmd53 read failed: %d ioport=0x%x retry=%d\n", ret,  cmd53_port, i);
+            i++;
+            if (MLAN_STATUS_SUCCESS != pcb->moal_write_reg(pmadapter->pmoal_handle,
+                HOST_TO_CARD_EVENT_REG, HOST_TERM_CMD53)) {
+                PRINTM(MERROR, "Set Term cmd53 failed\n");
+            }
+            if (i > MAX_WRITE_IOMEM_RETRY) {
+                ret = MLAN_STATUS_FAILURE;
+                goto done;
+            }
+        }
+    }while (ret == MLAN_STATUS_FAILURE);
+
 	if (pmadapter->rx_work_flag)
 		pmadapter->callbacks.moal_spin_lock(pmadapter->pmoal_handle,
 						    pmadapter->rx_data_queue.
@@ -2628,19 +2651,19 @@ wlan_set_sdio_gpio_int(IN pmlan_private priv)
 		if (pmadapter->gpio_pin != GPIO_INT_NEW_MODE) {
 			PRINTM(MINFO,
 			       "SDIO_GPIO_INT_CONFIG: interrupt mode is GPIO\n");
-		sdio_int_cfg.action = HostCmd_ACT_GEN_SET;
-		sdio_int_cfg.gpio_pin = pmadapter->gpio_pin;
-		sdio_int_cfg.gpio_int_edge = INT_FALLING_EDGE;
-		sdio_int_cfg.gpio_pulse_width = DELAY_1_US;
+			sdio_int_cfg.action = HostCmd_ACT_GEN_SET;
+			sdio_int_cfg.gpio_pin = pmadapter->gpio_pin;
+			sdio_int_cfg.gpio_int_edge = INT_FALLING_EDGE;
+			sdio_int_cfg.gpio_pulse_width = DELAY_1_US;
 			ret = wlan_prepare_cmd(priv,
 					       HostCmd_CMD_SDIO_GPIO_INT_CONFIG,
-				       HostCmd_ACT_GEN_SET, 0, MNULL,
-				       &sdio_int_cfg);
+					       HostCmd_ACT_GEN_SET, 0, MNULL,
+					       &sdio_int_cfg);
 
-		if (ret) {
-			PRINTM(MERROR,
-			       "SDIO_GPIO_INT_CONFIG: send command fail\n");
-			ret = MLAN_STATUS_FAILURE;
+			if (ret) {
+				PRINTM(MERROR,
+				       "SDIO_GPIO_INT_CONFIG: send command fail\n");
+				ret = MLAN_STATUS_FAILURE;
 			}
 		}
 	} else {

@@ -37,6 +37,7 @@ Change log:
 /** Updating priority table for AMPDU/AMSDU */
 #define UAP_AGGR_PRIOTBL    1
 /** Updating addbareject table */
+
 #define UAP_ADDBA_REJECT    2
 /** Get FW INFO */
 #define UAP_FW_INFO         4
@@ -513,4 +514,5 @@ void woal_ioctl_get_uap_info_resp(moal_private *priv, mlan_ds_get_info *info);
 int woal_set_get_custom_ie(moal_private *priv, t_u16 mask, t_u8 *ie,
 			   int ie_len);
 #endif /* UAP_WEXT */
+
 #endif /* _MOAL_UAP_H */

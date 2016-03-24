@@ -1987,7 +1987,7 @@ woal_cfg80211_del_station(struct wiphy *wiphy, struct net_device *dev,
 	}
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 19, 0)
 	if (param) {
-	mac_addr = param->mac;
+		mac_addr = param->mac;
 		reason_code = param->reason_code;
 	}
 #endif
@@ -2553,6 +2553,7 @@ woal_cfg80211_channel_switch(struct wiphy *wiphy,
 		woal_stop_queue(dev);
 		priv->uap_tx_blocked = MTRUE;
 	}
+
 	woal_clear_all_mgmt_ies(priv, MOAL_IOCTL_WAIT);
 	if (woal_cfg80211_set_beacon(wiphy, dev, &params->beacon_csa)) {
 		PRINTM(MERROR, "%s: setting csa mgmt ies failed\n", __func__);
@@ -2565,16 +2566,16 @@ woal_cfg80211_channel_switch(struct wiphy *wiphy,
 	       sizeof(struct cfg80211_beacon_data));
 
 	if (!priv->phandle->fw_ecsa_enable) {
-	if (MLAN_STATUS_SUCCESS !=
-	    woal_set_get_sys_config(priv, MLAN_ACT_GET, MOAL_IOCTL_WAIT,
-				    &bss_cfg)) {
-		PRINTM(MERROR, "%s: get uap config failed\n", __func__);
-		ret = -EFAULT;
-		goto done;
-	}
-	chsw_msec = params->count * bss_cfg.beacon_period;
-	queue_delayed_work(priv->csa_workqueue, &priv->csa_work,
-			   msecs_to_jiffies(chsw_msec));
+		if (MLAN_STATUS_SUCCESS !=
+		    woal_set_get_sys_config(priv, MLAN_ACT_GET, MOAL_IOCTL_WAIT,
+					    &bss_cfg)) {
+			PRINTM(MERROR, "%s: get uap config failed\n", __func__);
+			ret = -EFAULT;
+			goto done;
+		}
+		chsw_msec = params->count * bss_cfg.beacon_period;
+		queue_delayed_work(priv->csa_workqueue, &priv->csa_work,
+				   msecs_to_jiffies(chsw_msec));
 	}
 done:
 	LEAVE();

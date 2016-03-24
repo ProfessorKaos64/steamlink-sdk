@@ -2500,7 +2500,7 @@ done:
  *
  * @param wiphy         A pointer to wiphy structure
  * @param dev           A pointer to net_device structure
- * @param qos_map     A pointer to cfg80211_qos_map structure
+ * @param qos_map       A pointer to cfg80211_qos_map structure
  *
  *
  * @return              0 -- success, otherwise fail

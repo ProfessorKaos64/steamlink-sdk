@@ -2106,7 +2106,7 @@ wlan_cmd_802_11_ad_hoc_join(IN mlan_private *pmpriv,
 	    && (pmadapter->adhoc_start_band & BAND_GAC
 		|| pmadapter->adhoc_start_band & BAND_AAC))
 		cmd_append_size +=
-		wlan_cmd_append_11ac_tlv(pmpriv, pbss_desc, &pos);
+			wlan_cmd_append_11ac_tlv(pmpriv, pbss_desc, &pos);
 
 	cmd->size =
 		(t_u16)

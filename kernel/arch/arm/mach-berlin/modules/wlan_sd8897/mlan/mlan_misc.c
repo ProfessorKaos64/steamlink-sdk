@@ -2414,7 +2414,7 @@ wlan_misc_ioctl_tdls_get_ies(IN pmlan_adapter pmadapter,
 			wlan_fill_ht_cap_ie(pmpriv, ht_cap,
 					    pbss_desc->bss_band);
 		else if (pmpriv->host_tdls_cs_support &&
-		    (pmadapter->fw_bands & BAND_A))
+			 (pmadapter->fw_bands & BAND_A))
 			wlan_fill_ht_cap_ie(pmpriv, ht_cap, BAND_A);
 		else
 			wlan_fill_ht_cap_ie(pmpriv, ht_cap,
@@ -3055,7 +3055,7 @@ wlan_check_sta_capability(pmlan_private priv, pmlan_buffer pevent,
 							MLAN_TX_DATA_BUF_SIZE_12K;
 					else if (GET_VHTCAP_MAXMPDULEN
 						 (wlan_le32_to_cpu
-						 (pvht_cap->vht_cap.
+						  (pvht_cap->vht_cap.
 						   vht_cap_info))
 						 == 1)
 						sta_ptr->max_amsdu =

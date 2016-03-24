@@ -812,7 +812,7 @@ wlan_ops_sta_process_event(IN t_void *priv)
 		if (pmadapter->ecsa_enable) {
 			MrvlIEtypes_channel_band_t *pchan_info =
 				(MrvlIEtypes_channel_band_t *)(pmadapter->
-						 event_body);
+							       event_body);
 			t_u8 channel = pchan_info->channel;
 			chan_freq_power_t *cfp = MNULL;
 			DBG_HEXDUMP(MCMD_D, "chan band config",
@@ -853,7 +853,7 @@ wlan_ops_sta_process_event(IN t_void *priv)
 			if (stop_tx)
 				pmadapter->state_rdh.tx_block = MTRUE;
 		} else
-		wlan_11h_handle_event_chanswann(pmpriv);
+			wlan_11h_handle_event_chanswann(pmpriv);
 		break;
 	case EVENT_RADAR_DETECTED:
 		PRINTM(MEVENT, "EVENT: Radar Detected\n");
