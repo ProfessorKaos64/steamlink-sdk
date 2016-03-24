@@ -5,7 +5,7 @@ source ../../setenv.sh
 
 export TOP="${PWD}"
 export DESTDIR="${PWD}/steamlink/apps/retroarch"
-export SRC="retroarch-src"
+export SRC="${PWD}/retroarch-src"
 GITURL="https://github.com/libretro/RetroArch.git"
 OPTS="--recursive"
 
@@ -28,16 +28,12 @@ if [[ -d "${SRC}" ]]; then
 		echo -e "\n==> Attempting git pull..."
 		sleep 2s
 
-		# attempt git pull, if it doesn't complete reclone
-		cd "${SRC}" || exit 1
-
-		if ! git pull; then
+		if ! git pull "${SRC}"; then
 
 			# command failure
 			echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 			sleep 2s
 			rm -rf "${SRC}"
-			cd "${TOP}" || exit 1
 			git clone "${OPTS}" "${GITURL}" "${SRC}"
 
 		fi
@@ -47,14 +43,12 @@ if [[ -d "${SRC}" ]]; then
 		echo -e "\n==> Removing and cloning repository again...\n"
 		sleep 2s
 		sudo rm -rf "${SRC}"
-		cd "${TOP}" || exit 1
 		git clone "${OPTS}" "${GITURL}" "${SRC}"
 
 	else
 
 		echo -e "\n==> Git directory does not exist. cloning now...\n"
 		sleep 2s
-		cd "${TOP}" || exit 1
 		git clone "${OPTS}" "${GITRUL}" "${SRC}"
 
 	fi
@@ -63,7 +57,6 @@ else
 
 		echo -e "\n==> Git directory does not exist. cloning now...\n"
 		sleep 2s
-		"${OPTS}" "${GITRUL}" "${SRC}" || exit 1
 		git clone "${OPTS}" "${GITRUL}" "${SRC}"
 
 fi
@@ -78,13 +71,13 @@ fi
 # Quotes and globs seem to interfere with how compilers are set
 # See: https://github.com/ValveSoftware/steamlink-sdk/issues/18
 
-cp "${TOP}/qb.comp.sh" "${TOP}/${SRC}/qb"
-cp "${TOP}/qb.libs.sh" "${TOP}/${SRC}/qb"
-cp "${TOP}/qb.system.sh" "${TOP}/${SRC}/qb"
-cp "${TOP}/qb.params.sh" "${TOP}/${SRC}/qb"
+cp "${TOP}/qb.comp.sh" "${SRC}/qb"
+cp "${TOP}/qb.libs.sh" "${SRC}/qb"
+cp "${TOP}/qb.system.sh" "${SRC}/qb"
+cp "${TOP}/qb.params.sh" "${SRC}/qb"
 
 # Enter source dir, or ensure we are already in the correct directory
-cd "${TOP}/${SRC}" || exit 1
+cd "${SRC}" || exit 1
 
 # Configure
 # See example: https://www.raspberrypi.org/forums/viewtopic.php?t=56070
