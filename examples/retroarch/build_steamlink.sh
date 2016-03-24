@@ -5,7 +5,7 @@ source ../../setenv.sh
 
 export TOP="${PWD}"
 export DESTDIR="${PWD}/steamlink/apps/retroarch"
-export SRC="${PWD}/retroarch-src"
+export SRC="retroarch-src"
 GITURL="https://github.com/libretro/RetroArch.git"
 OPTS="--recursive"
 
