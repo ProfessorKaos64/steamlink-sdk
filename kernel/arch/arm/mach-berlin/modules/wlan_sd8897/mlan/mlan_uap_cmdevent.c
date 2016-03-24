@@ -2416,7 +2416,7 @@ wlan_uap_ret_sys_config(IN pmlan_private pmpriv,
 				if (!pmpriv->adapter->ecsa_enable)
 					wlan_11h_radar_detected_callback((t_void
 									  *)
-								 pmpriv);
+									 pmpriv);
 			}
 			break;
 		}
@@ -3679,7 +3679,7 @@ wlan_ops_uap_process_cmdresp(IN t_void *priv,
 		if (pmpriv->intf_state_11h.is_11h_host)
 			pmpriv->intf_state_11h.tx_disabled = MFALSE;
 		else
-		wlan_11h_check_update_radar_det_state(pmpriv);
+			wlan_11h_check_update_radar_det_state(pmpriv);
 
 		if (pmpriv->adapter->state_rdh.stage == RDH_STOP_INTFS)
 			wlan_11h_radar_detected_callback((t_void *)pmpriv);

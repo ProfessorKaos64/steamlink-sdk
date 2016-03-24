@@ -256,6 +256,11 @@ woal_sdio_probe(struct sdio_func *func, const struct sdio_device_id *id)
 	   mode */
 	func->card->quirks |= MMC_QUIRK_BLKSZ_FOR_BYTE_MODE;
 #endif
+
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 0, 0)
+    func->card->quirks |= MMC_QUIRK_LENIENT_FN0;
+#endif
+
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 27)
 	/* wait for chip fully wake up */
 	if (!func->enable_timeout)
@@ -637,6 +642,7 @@ woal_sdio_rw_mb(moal_handle *handle, pmlan_buffer pmbuf_list, t_u32 port,
 	struct sdio_func *func = ((struct sdio_mmc_card *)handle->card)->func;
 	t_u32 ioport = (port & MLAN_SDIO_IO_PORT_MASK);
 	t_u32 blkcnt = pmbuf_list->data_len / MLAN_SDIO_BLOCK_SIZE;
+	int status;
 
 	if (num_sg > SDIO_MP_AGGR_DEF_PKT_LIMIT_MAX) {
 		PRINTM(MERROR, "ERROR: num_sg=%d", num_sg);
@@ -681,14 +687,21 @@ woal_sdio_rw_mb(moal_handle *handle, pmlan_buffer pmbuf_list, t_u32 port,
 			     card);
 	mmc_wait_for_req(((struct sdio_mmc_card *)handle->card)->func->card->
 			 host, &mmc_req);
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 32)
-	sdio_release_host(((struct sdio_mmc_card *)handle->card)->func);
-#endif
 	if (mmc_cmd.error || mmc_dat.error) {
 		PRINTM(MERROR, "CMD53 %s cmd_error = %d data_error=%d\n",
 		       write ? "write" : "read", mmc_cmd.error, mmc_dat.error);
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 0, 0)
+        /* issue abort cmd52 command through F0*/
+        sdio_f0_writeb(((struct sdio_mmc_card *)handle->card)->func, 0x01, SDIO_CCCR_ABORT, &status);
+#endif
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 32)
+	    sdio_release_host(((struct sdio_mmc_card *)handle->card)->func);
+#endif
 		return MLAN_STATUS_FAILURE;
 	}
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 32)
+    sdio_release_host(((struct sdio_mmc_card *)handle->card)->func);
+#endif
 	return MLAN_STATUS_SUCCESS;
 }
 
@@ -729,8 +742,13 @@ woal_write_data_sync(moal_handle *handle, mlan_buffer *pmbuf, t_u32 port,
 			      ioport, buffer, blkcnt * blksz);
 	if (!status)
 		ret = MLAN_STATUS_SUCCESS;
-	else
+	else{
 		PRINTM(MERROR, "cmd53 write error=%d\n", status);
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 0, 0)
+        /* issue abort cmd52 command through F0*/
+        sdio_f0_writeb(((struct sdio_mmc_card *)handle->card)->func, 0x01, SDIO_CCCR_ABORT, &status);
+#endif
+	}
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 32)
 	sdio_release_host(((struct sdio_mmc_card *)handle->card)->func);
 #endif
@@ -779,7 +797,10 @@ woal_read_data_sync(moal_handle *handle, mlan_buffer *pmbuf, t_u32 port,
 		ret = MLAN_STATUS_SUCCESS;
 	} else {
 		PRINTM(MERROR, "cmd53 read error=%d\n", status);
-		woal_dump_sdio_reg(handle);
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 0, 0)
+        /* issue abort cmd52 command through F0*/
+        sdio_f0_writeb(((struct sdio_mmc_card *)handle->card)->func, 0x01, SDIO_CCCR_ABORT, &status);
+#endif
 	}
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 32)
 	sdio_release_host(((struct sdio_mmc_card *)handle->card)->func);

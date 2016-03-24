@@ -970,6 +970,7 @@ typedef enum _WLAN_802_11_WEP_STATUS {
 #define HostCmd_CMD_802_11_SCAN               0x0006
 /** Host Command ID : 802.11 get log */
 #define HostCmd_CMD_802_11_GET_LOG            0x000b
+
 /** Host Command ID : MAC multicast address */
 #define HostCmd_CMD_MAC_MULTICAST_ADR         0x0010
 /** Host Command ID : 802.11 EEPROM access */

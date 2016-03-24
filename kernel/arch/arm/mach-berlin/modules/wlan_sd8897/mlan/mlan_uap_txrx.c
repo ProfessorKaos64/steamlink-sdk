@@ -308,7 +308,7 @@ wlan_ops_uap_process_rx_packet(IN t_void *adapter, IN pmlan_buffer pmbuf)
 	       pmbuf->data_len, prx_pd->rx_pkt_offset,
 	       pmbuf->data_len - prx_pd->rx_pkt_offset);
 
-	if ((prx_pd->rx_pkt_offset + prx_pd->rx_pkt_length) >
+	if ((prx_pd->rx_pkt_offset + prx_pd->rx_pkt_length) !=
 	    (t_u16)pmbuf->data_len) {
 		PRINTM(MERROR,
 		       "Wrong rx packet: len=%d,rx_pkt_offset=%d,"

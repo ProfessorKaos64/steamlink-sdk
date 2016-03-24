@@ -180,14 +180,14 @@ wlan_uap_callback_bss_ioctl_start(IN t_void *priv)
 			if (ret == MLAN_STATUS_SUCCESS) {
 
 				wlan_11h_update_bandcfg(&pmpriv->
-								       uap_state_chan_cb.
-								       band_config,
-								       puap_state_chan_cb->
-								       channel);
-					PRINTM(MCMD_D,
-					       "NOP: uap band config:0x%x  channel=%d\n",
+							uap_state_chan_cb.
+							band_config,
+							puap_state_chan_cb->
+							channel);
+				PRINTM(MCMD_D,
+				       "NOP: uap band config:0x%x  channel=%d\n",
 				       pmpriv->uap_state_chan_cb.band_config,
-					       puap_state_chan_cb->channel);
+				       puap_state_chan_cb->channel);
 
 				ret = wlan_uap_set_channel(pmpriv,
 							   pmpriv->

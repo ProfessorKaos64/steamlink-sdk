@@ -26,16 +26,16 @@
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)
 /**vendor event*/
-enum vendor_event { event_hang = 0, event_max,
+enum vendor_event { event_hang = 0, event_max,
 };
 
 /**vendor sub command*/
-enum vendor_sub_command { sub_cmd_set_drvdbg = 0, sub_cmd_max,
+enum vendor_sub_command { sub_cmd_set_drvdbg = 0, sub_cmd_max,
 };
-void woal_register_cfg80211_vendor_command(struct wiphy *wiphy );
-int woal_cfg80211_vendor_event(IN moal_private *priv, IN int event,
-				IN t_u8 *data, IN int len);
+void woal_register_cfg80211_vendor_command(struct wiphy *wiphy );
+int woal_cfg80211_vendor_event(IN moal_private *priv, IN int event,
+				IN t_u8 *data, IN int len);
 
-#endif	/*  */
+#endif	/*  */
 
 #endif	/* _MOAL_CFGVENDOR_H_ */

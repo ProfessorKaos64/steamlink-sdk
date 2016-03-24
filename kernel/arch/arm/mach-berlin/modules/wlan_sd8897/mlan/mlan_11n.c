@@ -2399,7 +2399,7 @@ wlan_cmd_append_11n_tlv(IN mlan_private *pmpriv,
 		ret_len += sizeof(MrvlIETypes_HTCap_t);
 		pht_cap->header.len = wlan_cpu_to_le16(pht_cap->header.len);
 	} else {
-		//AP don't support 11N
+		// AP don't support 11N
 		LEAVE();
 		return 0;
 	}

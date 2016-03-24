@@ -1540,7 +1540,7 @@ moal_recv_event(IN t_void *pmoal_handle, IN pmlan_event pmevent)
 				if (priv->csa_chan.chan &&
 				    (pchan_info->channel ==
 				     priv->csa_chan.chan->hw_value)) {
-				memcpy(&priv->chan, &priv->csa_chan,
+					memcpy(&priv->chan, &priv->csa_chan,
 					       sizeof(struct
 						      cfg80211_chan_def));
 				}
