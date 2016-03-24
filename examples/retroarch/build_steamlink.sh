@@ -78,13 +78,13 @@ fi
 # Quotes and globs seem to interfere with how compilers are set
 # See: https://github.com/ValveSoftware/steamlink-sdk/issues/18
 
-cp "${TOP}/qb.comp.sh" "${SRC}/qb"
-cp "${TOP}/qb.libs.sh" "${SRC}/qb"
-cp "${TOP}/qb.system.sh" "${SRC}/qb"
-cp "${TOP}/qb.params.sh" "${SRC}/qb"
+cp "${TOP}/qb.comp.sh" "${TOP}/${SRC}/qb"
+cp "${TOP}/qb.libs.sh" "${TOP}/${SRC}/qb"
+cp "${TOP}/qb.system.sh" "${TOP}/${SRC}/qb"
+cp "${TOP}/qb.params.sh" "${TOP}/${SRC}/qb"
 
-# Enter source dir, or ensure we are already in the directory
-cd "${SRC}" || exit 1
+# Enter source dir, or ensure we are already in the correct directory
+cd "${TOP}/${SRC}" || exit 1
 
 # Configure
 # See example: https://www.raspberrypi.org/forums/viewtopic.php?t=56070
