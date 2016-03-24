@@ -6,6 +6,8 @@ source ../../setenv.sh
 export TOP="${PWD}"
 export DESTDIR="${PWD}/steamlink/apps/retroarch"
 export SRC="${PWD}/retroarch-src"
+GITURL="https://github.com/libretro/RetroArch.git"
+OPTS="--recursive"
 
 # Create intall dirs
 
@@ -14,11 +16,57 @@ for dir in ${DESTDIR} ${SRC} ; do
 	mkdir -p "${dir}"
 done
 
-# obtain source code
-# Try using libretro super for manual compilation here?
+if [[ -d "${SRC}" ]]; then
 
-git clone --recursive https://github.com/libretro/RetroArch.git "${SRC}" || exit 1
-# git clone --recursive https://github.com/libretro/libretro-super "${SRC}" || exit 1
+	echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
+	sleep 1s
+	read -erp "Choice: " git_choice
+
+	if [[ "$git_choice" == "p" ]]; then
+
+		# attempt to pull the latest source first
+		echo -e "\n==> Attempting git pull..."
+		sleep 2s
+
+		# attempt git pull, if it doesn't complete reclone
+		cd "${SRC}" || exit 1
+
+		if ! git pull; then
+
+			# command failure
+			echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
+			sleep 2s
+			rm -rf "${SRC}"
+			cd "${TOP}" || exit 1
+			git clone "${OPTS}" "${GITURL}" "${SRC}"
+
+		fi
+
+	elif [[ "$git_choice" == "r" ]]; then
+
+		echo -e "\n==> Removing and cloning repository again...\n"
+		sleep 2s
+		sudo rm -rf "${SRC}"
+		cd "${TOP}" || exit 1
+		git clone "${OPTS}" "${GITURL}" "${SRC}"
+
+	else
+
+		echo -e "\n==> Git directory does not exist. cloning now...\n"
+		sleep 2s
+		cd "${TOP}" || exit 1
+		git clone "${OPTS}" "${GITRUL}" "${SRC}"
+
+	fi
+
+else
+
+		echo -e "\n==> Git directory does not exist. cloning now...\n"
+		sleep 2s
+		"${OPTS}" "${GITRUL}" "${SRC}" || exit 1
+		git clone "${OPTS}" "${GITRUL}" "${SRC}"
+
+fi
 
 # For refernce:
 # TOOLCHAIN_PATH=$MARVELL_SDK_PATH/toolchain/bin
@@ -35,8 +83,8 @@ cp "${TOP}/qb.libs.sh" "${SRC}/qb"
 cp "${TOP}/qb.system.sh" "${SRC}/qb"
 cp "${TOP}/qb.params.sh" "${SRC}/qb"
 
-# Enter source dir
-cd "${SRC}"
+# Enter source dir, or ensure we are already in the directory
+cd "${SRC}" || exit 1
 
 # Configure
 # See example: https://www.raspberrypi.org/forums/viewtopic.php?t=56070
