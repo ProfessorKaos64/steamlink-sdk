@@ -28,7 +28,9 @@ if [[ -d "${SRC}" ]]; then
 		echo -e "\n==> Attempting git pull..."
 		sleep 2s
 
-		if ! git pull "${SRC}"; then
+		cd "${SRC}"
+
+		if ! git pull; then
 
 			# command failure
 			echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
@@ -84,10 +86,14 @@ cd "${SRC}" || exit 1
 # See similar example project: steamlink-sdk/external/util-linux-2.25/build_steamlink.sh
 # The last line is the default options exported by setenv.sh
 
+# Set some needed vars
+#CROSS_COMPILE=1
+OS="linux"
+
 ./configure --disable-vg --disable-opengl --disable-gles --disable-fbo --disable-egl \
 --enable-dispmanx --disable-x11 --disable-sdl2 --enable-floathard --disable-ffmpeg \
 --disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
---disable-freetype --disable-7zip --disable-libxml2  --prefix=/usr || exit 2
+--disable-freetype --disable-7zip --disable-libxml2 --disable-d3d9|| exit 2
 
 # Optimizations possible?
 # For example 'CFLAGS = -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s'

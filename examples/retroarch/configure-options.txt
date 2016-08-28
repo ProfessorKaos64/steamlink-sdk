@@ -1,0 +1,140 @@
+Checking operating system ... Linux 
+====================
+ Quickbuild script
+====================
+Package: retroarch
+
+General environment variables:
+  CC:         C compiler
+  CFLAGS:     C compiler flags
+  CXX:        C++ compiler
+  CXXFLAGS:   C++ compiler flags
+  LDFLAGS:    Linker flags
+
+General options:
+  --prefix=PATH             Install path prefix
+  --global-config-dir=PATH  System wide config file prefix
+  --host=HOST               cross-compile to build programs to run on HOST
+  --help                    Show this help
+
+Custom options:
+  --disable-libretrodb      Disable  Libretrodb support
+  --disable-rgui            Disable  RGUI menu
+  --enable-materialui       Enable  MaterialUI menu 
+  --disable-materialui      Disable  MaterialUI menu 
+  --enable-xmb              Enable  XMB menu
+  --disable-xmb             Disable  XMB menu
+  --enable-zarch            Enable  Zarch menu
+  --enable-nuklear          Enable  Nuklear menu
+  --disable-dynamic         Disable  Dynamic loading of libretro library
+  --enable-sdl              Enable  SDL support
+  --disable-sdl             Disable  SDL support
+  --enable-sdl2             Enable  SDL2 support (disables SDL 1.x)
+  --disable-sdl2            Disable  SDL2 support (disables SDL 1.x)
+  --enable-libusb           Enable  Libusb HID support
+  --disable-libusb          Disable  Libusb HID support
+  --enable-udev             Enable  Udev/Evdev gamepad support
+  --disable-udev            Disable  Udev/Evdev gamepad support
+  --with-libretro            Libretro library used
+  --with-bin_dir             Binary install directory
+  --with-man_dir             Manpage install directory
+  --with-gles_libs           Link flags for custom GLES library
+  --with-gles_cflags         C-flags for custom GLES library
+  --enable-threads          Enable  Threading support
+  --disable-threads         Disable  Threading support
+  --enable-ffmpeg           Enable  FFmpeg recording support
+  --disable-ffmpeg          Disable  FFmpeg recording support
+  --enable-ssa              Enable  SSA/ASS for FFmpeg subtitle support
+  --disable-ssa             Disable  SSA/ASS for FFmpeg subtitle support
+  --enable-dylib            Enable  Dynamic loading support
+  --disable-dylib           Disable  Dynamic loading support
+  --enable-networking       Enable  Networking features (recommended)
+  --disable-networking      Disable  Networking features (recommended)
+  --enable-networkgamepad   Enable  Networked game pad (plus baked-in core)
+  --disable-networkgamepad  Disable  Networked game pad (plus baked-in core)
+  --enable-netplay          Enable  Netplay support (requires networking)
+  --disable-netplay         Disable  Netplay support (requires networking)
+  --disable-d3d9            Disable  Direct3D 9 support
+  --enable-opengl           Enable  OpenGL support
+  --disable-opengl          Disable  OpenGL support
+  --enable-gles             Enable  Use GLESv2 instead of desktop GL
+  --enable-mali_fbdev       Enable  Mali fbdev context support
+  --enable-vivante_fbdev    Enable  Vivante fbdev context support
+  --enable-opendingux_fbdev  Enable  Opendingux fbdev context support
+  --enable-gles3            Enable  OpenGLES3 support
+  --enable-x11              Enable  everything X11.
+  --disable-x11             Disable  everything X11.
+  --enable-omap             Enable  OMAP video support
+  --enable-xinerama         Enable  Xinerama support.
+  --disable-xinerama        Disable  Xinerama support.
+  --enable-kms              Enable  KMS context support
+  --disable-kms             Disable  KMS context support
+  --enable-plain_drm        Enable  Plain DRM video support
+  --enable-exynos           Enable  Exynos video support
+  --enable-dispmanx         Enable  Dispmanx video support
+  --enable-sunxi            Enable  Sunxi video support
+  --enable-wayland          Enable  Wayland support
+  --disable-wayland         Disable  Wayland support
+  --enable-egl              Enable  EGL context support
+  --disable-egl             Disable  EGL context support
+  --enable-vg               Enable  OpenVG support
+  --disable-vg              Disable  OpenVG support
+  --enable-cg               Enable  Cg shader support
+  --disable-cg              Disable  Cg shader support
+  --enable-libxml2          Enable  libxml2 support
+  --disable-libxml2         Disable  libxml2 support
+  --enable-builtinzlib      Enable  Bake in zlib
+  --enable-zlib             Enable  zlib support (ZIP extract, PNG decoding/encoding)
+  --disable-zlib            Disable  zlib support (ZIP extract, PNG decoding/encoding)
+  --enable-fbo              Enable  render-to-texture (FBO) support
+  --disable-fbo             Disable  render-to-texture (FBO) support
+  --enable-alsa             Enable  ALSA support
+  --disable-alsa            Disable  ALSA support
+  --enable-oss              Enable  OSS support
+  --disable-oss             Disable  OSS support
+  --enable-rsound           Enable  RSound support
+  --disable-rsound          Disable  RSound support
+  --enable-roar             Enable  RoarAudio support
+  --disable-roar            Disable  RoarAudio support
+  --enable-al               Enable  OpenAL support
+  --disable-al              Disable  OpenAL support
+  --enable-jack             Enable  JACK support
+  --disable-jack            Disable  JACK support
+  --enable-coreaudio        Enable  CoreAudio support
+  --disable-coreaudio       Disable  CoreAudio support
+  --enable-pulse            Enable  PulseAudio support
+  --disable-pulse           Disable  PulseAudio support
+  --enable-freetype         Enable  FreeType support
+  --disable-freetype        Disable  FreeType support
+  --disable-stb_font        Disable  stb_truetype font support
+  --enable-xvideo           Enable  XVideo support
+  --disable-xvideo          Disable  XVideo support
+  --enable-python           Enable  Python 3 support for shaders
+  --enable-v4l2             Enable  Video4linux2 support
+  --disable-v4l2            Disable  Video4linux2 support
+  --enable-neon             Enable  ARM NEON optimizations
+  --enable-sse              Enable  x86 SSE optimizations (SSE, SSE2)
+  --enable-floathard        Enable  Force hard float ABI (for ARM)
+  --enable-floatsoftfp      Enable  Force soft float ABI (for ARM)
+  --disable-7zip            Disable  Compile in 7z support
+  --disable-update_assets   Disable  Disable downloading assets with online updater
+  --enable-preserve_dylib   Enable  Enable dlclose() for Valgrind support
+  --enable-parport          Enable  Parallel port joypad support
+  --disable-parport         Disable  Parallel port joypad support
+  --disable-imageviewer     Disable  Built-in image viewer support.
+  --enable-mmap             Enable  MMAP support
+  --disable-mmap            Disable  MMAP support
+  --enable-qt               Enable  QT companion support
+  --enable-xshm             Enable  XShm video driver support (disabled because it's just a dummied out stub)
+  --disable-cheevos         Disable  Retro Achievements
+  --disable-shaderpipeline  Disable  Additional shader-based pipelines
+  --enable-vulkan           Enable  Vulkan support
+  --disable-vulkan          Disable  Vulkan support
+  --disable-vulkan_khr_display  Disable  Vulkan KHR display backend support
+  --disable-rpng            Disable  RPNG support
+  --disable-rbmp            Disable  RBMP support
+  --disable-rjpeg           Disable  RJPEG support
+  --disable-rtga            Disable  RTGA support
+  --disable-hid             Disable  Low-level HID (Human Interface Device) support
+  --disable-langextra       Disable  Multi-language support
+  --enable-osmesa           Enable  Off-screen Mesa rendering
