@@ -6,23 +6,23 @@ source ../../setenv.sh
 export TOP="${PWD}"
 export DESTDIR="${PWD}/steamlink/apps/retroarch"
 export SRC="${PWD}/retroarch-src"
-GITURL="https://github.com/libretro/RetroArch.git"
+SRC_URL="https://github.com/libretro/RetroArch.git"
 OPTS="--recursive"
 
 # Create intall dirs
 
-for dir in ${DESTDIR} ${SRC} ; do
-	rm -rf "${dir}"
-	mkdir -p "${dir}"
+for DIR in ${DESTDIR} ${SRC} ; do
+	rm -rf "${DIR}"
+	mkdir -p "${DIR}"
 done
 
 if [[ -d "${SRC}" ]]; then
 
 	echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
 	sleep 1s
-	read -erp "Choice: " git_choice
+	read -erp "Choice: " CHOICE
 
-	if [[ "$git_choice" == "p" ]]; then
+	if [[ "${CHOICE}" == "p" ]]; then
 
 		# attempt to pull the latest source first
 		echo -e "\n==> Attempting git pull..."
@@ -36,22 +36,22 @@ if [[ -d "${SRC}" ]]; then
 			echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 			sleep 2s
 			rm -rf "${SRC}"
-			git clone "${OPTS}" "${GITURL}" "${SRC}"
+			git clone "${OPTS}" "${SRC_URL}" "${SRC}"
 
 		fi
 
-	elif [[ "$git_choice" == "r" ]]; then
+	elif [[ "${CHOICE}" == "r" ]]; then
 
 		echo -e "\n==> Removing and cloning repository again...\n"
 		sleep 2s
 		sudo rm -rf "${SRC}"
-		git clone "${OPTS}" "${GITURL}" "${SRC}"
+		git clone "${OPTS}" "${SRC_URL}" "${SRC}"
 
 	else
 
 		echo -e "\n==> Git directory does not exist. cloning now...\n"
 		sleep 2s
-		git clone "${OPTS}" "${GITRUL}" "${SRC}"
+		git clone "${OPTS}" "${SRC_URL}" "${SRC}"
 
 	fi
 
@@ -59,7 +59,7 @@ else
 
 		echo -e "\n==> Git directory does not exist. cloning now...\n"
 		sleep 2s
-		git clone "${OPTS}" "${GITRUL}" "${SRC}"
+		git clone "${OPTS}" "${SRC_URL}" "${SRC}"
 
 fi
 
@@ -101,7 +101,7 @@ OS="linux"
 # Build files in build dir
 steamlink_make_clean
 make V=1 || exit 2
-steamlink_make_install
+#steamlink_make_install
 
 #for dir in dir1 dir2 dir3; do
 #    mkdir -p "${DESTDIR}/${dir}"
