@@ -61,14 +61,15 @@ fi
 # MARVELL_SDK_PATH=$absolute_path
 # MARVELL_ROOTFS=$MARVELL_SDK_PATH/rootfs
 
-# Modify these files to not hide output so it can be debugged
 # Quotes and globs seem to interfere with how compilers are set
 # See: https://github.com/ValveSoftware/steamlink-sdk/issues/18
 
-cp "${TOP}/qb.comp.sh" "${SRC}/qb"
-cp "${TOP}/qb.libs.sh" "${SRC}/qb"
-cp "${TOP}/qb.system.sh" "${SRC}/qb"
-cp "${TOP}/qb.params.sh" "${SRC}/qb"
+sed -i 's/\"\$CC\"/\$CC/g' "${SRC}/qb/qb.comp.sh"
+sed -i 's/\"\$CC\"/\$CC/g' "${SRC}/qb/qb.libs.sh"
+sed -i 's/\"\$CC\"/\$CC/g' "${SRC}/qb/qb.system.sh"
+
+# Can't build with shader pipeline on Steam Link, so no shaders
+sed -i 's/HAVE_SHADERPIPELINE\=yes/HAVE_SHADERPIPELINE\=no/' "${SRC}/qb/qb.params.sh"
 
 # Add Makefile?
 # See Makefile (mirrored from OpenPandora build)
@@ -86,10 +87,10 @@ cd "${SRC}" || exit 1
 #CROSS_COMPILE=1
 export OS="linux"
 
-./configure --disable-opengl --enable-mali_fbdev --disable-x11 --disable-sdl2 --enable-floathard \
---disable-ffmpeg --enable-udev --disable-sdl --disable-pulse --disable-oss \
+./configure --disable-egl --disable-opengl --enable-mali_fbdev --disable-x11 --disable-sdl2 \
+--enable-floathard --disable-ffmpeg --enable-udev --disable-sdl --disable-pulse --disable-oss \
 --disable-freetype --disable-7zip --disable-libxml2 --disable-vulkan --disable-vulkan_display \
-|| exit 2
+--disable-xmb --disable-materialui || exit 2
 
 # Optimizations possible?
 # For example 'CFLAGS = -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s'
