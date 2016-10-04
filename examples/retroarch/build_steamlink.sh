@@ -84,7 +84,7 @@ cd "${SRC}" || exit 1
 #CROSS_COMPILE=1
 OS="linux"
 
-./configure --enable-gles --enable-mali_fbdev --disable-x11 --disable-sdl2 --enable-floathard \
+./configure --enable-opengles --enable-mali_fbdev --disable-x11 --disable-sdl2 --enable-floathard \
 --disable-ffmpeg --disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
 --disable-freetype --disable-7zip --disable-libxml2 --disable-vulkan --disable-vulkan_display \
 || exit 2
