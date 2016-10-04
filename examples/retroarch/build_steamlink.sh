@@ -47,12 +47,6 @@ if [[ -d "${SRC}" ]]; then
 		sudo rm -rf "${SRC}"
 		git clone "${OPTS}" "${SRC_URL}" "${SRC}"
 
-	else
-
-		echo -e "\n==> Git directory does not exist. cloning now...\n"
-		sleep 2s
-		git clone "${OPTS}" "${SRC_URL}" "${SRC}"
-
 	fi
 
 else
