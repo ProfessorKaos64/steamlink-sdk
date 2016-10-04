@@ -90,10 +90,10 @@ cd "${SRC}" || exit 1
 #CROSS_COMPILE=1
 OS="linux"
 
-./configure --disable-vg --disable-opengl --disable-gles --disable-fbo --disable-egl \
---enable-dispmanx --disable-x11 --disable-sdl2 --enable-floathard --disable-ffmpeg \
---disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
---disable-freetype --disable-7zip --disable-libxml2 --disable-d3d9|| exit 2
+./configure --enable-gles --enable-mali_fbdev --disable-x11 --disable-sdl2 --enable-floathard \
+--disable-ffmpeg --disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
+--disable-freetype --disable-7zip --disable-libxml2 --disable-vulkan --disable-vulkan_display \
+|| exit 2
 
 # Optimizations possible?
 # For example 'CFLAGS = -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s'
