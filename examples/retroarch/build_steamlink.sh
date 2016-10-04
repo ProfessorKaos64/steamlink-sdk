@@ -12,7 +12,7 @@ OPTS="--recursive"
 # Create intall dirs
 if [[ ! -d ${DESTDIR} ]]; then
 	mkdir -p "${DESTDIR}"
-done
+fi
 
 if [[ -d "${SRC}" ]]; then
 
