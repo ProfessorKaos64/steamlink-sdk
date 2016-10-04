@@ -70,6 +70,10 @@ cp "${TOP}/qb.libs.sh" "${SRC}/qb"
 cp "${TOP}/qb.system.sh" "${SRC}/qb"
 cp "${TOP}/qb.params.sh" "${SRC}/qb"
 
+# Add Makefile?
+# See Makefile (mirrored from OpenPandora build)
+# cp "${TOP}Makefile" "${SRC}"
+
 # Enter source dir, or ensure we are already in the correct directory
 cd "${SRC}" || exit 1
 
