@@ -10,10 +10,8 @@ SRC_URL="https://github.com/libretro/RetroArch.git"
 OPTS="--recursive"
 
 # Create intall dirs
-
-for DIR in ${DESTDIR} ${SRC} ; do
-	rm -rf "${DIR}"
-	mkdir -p "${DIR}"
+if [[ ! -d ${DESTDIR} ]]; then
+	mkdir -p "${DESTDIR}"
 done
 
 if [[ -d "${SRC}" ]]; then
@@ -82,10 +80,10 @@ cd "${SRC}" || exit 1
 
 # Set some needed vars
 #CROSS_COMPILE=1
-OS="linux"
+export OS="linux"
 
 ./configure --enable-opengles --enable-mali_fbdev --disable-x11 --disable-sdl2 --enable-floathard \
---disable-ffmpeg --disable-netplay --enable-udev --disable-sdl --disable-pulse --disable-oss \
+--disable-ffmpeg --enable-udev --disable-sdl --disable-pulse --disable-oss \
 --disable-freetype --disable-7zip --disable-libxml2 --disable-vulkan --disable-vulkan_display \
 || exit 2
 
