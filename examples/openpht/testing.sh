@@ -15,7 +15,10 @@ if [ ! -d "${SRC}" ]; then
 	
 fi
 
-./boostrap || exit 1
+# Enter source dir, or ensure we are already in the correct directory
+cd "${SRC}" || exit 1
+
+./boostrap
 mkdir build && cd build
 cmake \
 	-DCMAKE_BUILD_TYPE=Release \
