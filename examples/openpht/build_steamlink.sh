@@ -15,7 +15,7 @@ if [[ ! -d "${SRC}" ]]; then
 else
 
 	# clean and pull
-	pushd "${SRC}
+	pushd "${SRC}"
 	git clean
 	git pull
 	popd
