@@ -14,10 +14,10 @@ if [ ! -d "${SRC}" ]; then
 else
 
 	# clean and pull
-	cd "${SRC}
+	pushd "${SRC}
 	git clean
 	git pull
-	cd "${TOP}
+	popd
 fi
 
 
@@ -33,9 +33,9 @@ if [ ! -f "${SRC}/tools/depends/configure" ]; then
 	popd
 fi
 
-./configure
+echo "test complete"
 
 # All done!
-echo "Build complete!"
-echo
-echo "Put the steamlink folder onto a USB drive, insert it into your Steam Link, and cycle the power to install."
+#echo "Build complete!"
+#echo
+#echo "Put the steamlink folder onto a USB drive, insert it into your Steam Link, and cycle the power to install."
