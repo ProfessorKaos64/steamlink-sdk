@@ -2,22 +2,22 @@
 #
 
 TOP="${PWD}"
-SRC="${TOP}/openpht-src"
+SRC="${TOP}/openpht-src-embedded"
 
 #
 # Download the source to OpenPHT
 #
 if [ ! -d "${SRC}" ]; then
-	git clone -b "v1.6.2.123-e23a7eef" https://github.com/RasPlex/OpenPHT.git "${SRC}" || exit 1
+	git clone -b "v1.7.1.137-b604995c-aml" "https://github.com/RasPlex/OpenPHT-Embedded" "${SRC}" || exit 1
 	rm -f "${TOP}/.patch-applied"
 	
 else
 
 	# clean and pull
-	cd "${SRC}
+	pushd "${SRC}
 	git clean
 	git pull
-	cd "${TOP}
+	popd
 fi
 
 
