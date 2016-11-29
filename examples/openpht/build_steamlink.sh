@@ -1,6 +1,9 @@
 #!/bin/bash
 #
 
+# Set env
+source ../../setenv.sh
+
 TOP="${PWD}"
 SRC="${TOP}/openpht-src"
 RELEASE="v1.6.2.123-e23a7eef"
