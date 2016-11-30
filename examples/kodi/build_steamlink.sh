@@ -20,7 +20,6 @@ if [ "${TOP}/kodi.patch" -nt "${TOP}/.patch-applied" ]; then
 	git clean -fxd
 	git checkout .
 	patch -p1 <"${TOP}/kodi.patch" || exit 1
-	patch -p1 <"${TOP}/kodi-audio.patch" || exit 1
 	popd
 	touch "${TOP}/.patch-applied"
 fi
@@ -171,14 +170,14 @@ export PULSE_CFLAGS="-I${MARVELL_ROOTFS}/usr/include"
 export PULSE_LIBS="-lpulse -L${MARVELL_ROOTFS}/usr/lib/pulseaudio -lpulsecommon-8.0"
 export PKG_CONFIG_SYSROOT_DIR="${MARVELL_ROOTFS}"
 pushd "${SRC}"
-./configure $STEAMLINK_CONFIGURE_OPTS --prefix=/home/steam/apps/kodi --disable-x11 || exit 4
+./configure $STEAMLINK_CONFIGURE_OPTS --prefix=/home/apps/kodi --disable-x11 || exit 4
 
 make clean
 make $MAKE_J || exit 5
 
 export DESTDIR="${TOP}/steamlink/apps/kodi"
 make install
-for dir in "${DESTDIR}/home/steam/apps/kodi"/*; do
+for dir in "${DESTDIR}/home/apps/kodi"/*; do
     rm -rf "${DESTDIR}/$(basename $dir)"
     mv -v "$dir" "${DESTDIR}"
 done
@@ -337,6 +336,13 @@ OgHJq9Tfks0rbqAZCi7mVer7OAlVOH26y4Drcvzxe3AGkK43QsFIPo5/RKw27Kacv4izGO8NODMD
 Dmc5Aex2Gz+/G2jq9qIHn+FEjMaZHXAOMB2nD2A8Tl6oAvCmvSWK08/Z4Mbc7wG1OHc0HjZCwXou
 lUsF4P8BXBKtqr0J9mEAAAAASUVORK5CYII=
 __EOF__
+
+# Pack it up
+name=$(basename ${DESTDIR})
+pushd "$(dirname ${DESTDIR})"
+tar zcvf $name.tgz $name
+rm -rf $name
+popd
 
 # All done!
 echo "Build complete!"
