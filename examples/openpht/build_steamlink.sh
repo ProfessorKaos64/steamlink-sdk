@@ -4,7 +4,7 @@
 
 TOP="${PWD}"
 SRC="${TOP}/openpht-src"
-BRANCH="teamlink-openpht-1.7"
+BRANCH="steamlink-openpht-1.7"
 
 ###################################
 # Download the sources
