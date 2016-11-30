@@ -4,7 +4,7 @@
 
 TOP="${PWD}"
 SRC="${TOP}/openpht-src"
-RELEASE="v1.6.2.123-e23a7eef"
+BRANCH="teamlink-openpht-1.7"
 
 ###################################
 # Download the sources
@@ -12,7 +12,7 @@ RELEASE="v1.6.2.123-e23a7eef"
 
 if [[ ! -d "${SRC}" ]]; then
 
-	git clone -b "${RELEASE}" "https://github.com/RasPlex/OpenPHT.git" "${SRC}" || exit 1
+	git clone -b "${BRANCH}" "https://github.com/ProfessorKaos64/OpenPHT.git" "${SRC}" || exit 1
 	rm -f "${TOP}/.patch-applied"
 
 fi
