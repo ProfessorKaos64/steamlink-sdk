@@ -25,6 +25,13 @@ Call Stack (most recent call first):
 -- Configuring incomplete, errors occurred!
 See also "/mnt/bulk-storage/steamlink-sdk/ex
 ```
+=======
+## TODO (known)
+
+- [ ] Backport CMake 3.1.0 (just use SteamOS Brewmaster script as template) to Debian Jessie
+  - [x] build
+  - [ ] local install test
+  - [ ] Add to libregeek pool
 
 ## Building
 
@@ -41,10 +48,11 @@ See also "/mnt/bulk-storage/steamlink-sdk/ex
 
 ##Building OpenPHT
 
-Before compiling, make sure you have installed these packages:
+Before compiling, make sure you have installed these packages (or equivalent):
 
-```
-build-essential cmake (>= 3.1.0) curl default-jre doxygen gawk git gperf libcurl4-openssl-dev libtool swig unzip zip zlib1g-dev wget
+``
+build-essential cmake (>= 3.1.0) curl default-jre doxygen gawk git gperf
+libcurl4-openssl-dev libtool ninja-build python-all-dev swig unzip zip zlib1g-dev wget
 ```
 
 ##Executing the build process
