@@ -47,8 +47,10 @@ cmake -G Ninja \
 	-DSDL_INCLUDE_DIR="$MARVELL_ROOTFS/usr/include;$MARVELL_ROOTFS/usr/include/SDL2" \
 	-DJPEG_LIBRARY="$MARVEL_ROOTFS/usr/local/Qt-5.4.1/plugins/imageformats/libqjpeg.so" \
 	-DSQLITE3_LIBRARY="$MARVEL_ROOTFS/usr/local/Qt-5.4.1/plugins/imageformats/libqsqlite.so" \
-	-DLZO2_INCLUDE_DIR="$EXTERNAL_LIBS/liblzo2/usr/include/lzo/" \
-	-DLZO2_LIBRARIES="$EXTERNAL/liblzo2/usr/lib/aarch64-linux-gnu/liblzo2.so" \
+	-DLZO2_INCLUDE_DIR="$EXTERNAL_LIBS/liblzo2/usr/include/lzo" \
+	-DLZO2_LIBRARIES="$EXTERNAL_LIBS/liblzo2/usr/lib/aarch64-linux-gnu/liblzo2.so" \
+	-DFRIBIDI_LIBRARY="$EXTERNAL_LIBS/libfribidi/usr/lib/aarch64-linux-gnu/libfribidi.so.0" \
+	-DxFRIBIDI_INCLUDE_DIR="$EXTERNAL_LIBS/libfribidi/usr/include/fribidi" \
 	-DCOMPRESS_TEXTURES=OFF \
 	-DENABLE_DUMP_SYMBOLS=ON \
 	-DENABLE_AUTOUPDATE=ON \
