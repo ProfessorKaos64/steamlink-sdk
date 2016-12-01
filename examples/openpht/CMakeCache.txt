@@ -86,7 +86,7 @@ CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=OFF
 CMAKE_INCLUDE_PATH:UNINITIALIZED=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include;/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include/python2.7
 
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=/usr/lib/plexht
+CMAKE_INSTALL_PREFIX:PATH=/mnt/bulk-storage/steamlink-sdk/examples/openpht/openpht-final
 
 //No help, variable specified on the command line.
 CMAKE_LIBRARY_PATH:UNINITIALIZED=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/lib
@@ -219,16 +219,31 @@ FREETYPE_LIBRARY:FILEPATH=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/lib/libfree
 HAVE_LIBFREETYPE:STRING=1
 
 //if this lib is around or not
+HAVE_LIBJPEG:STRING=1
+
+//if this lib is around or not
+HAVE_LIBPCRE:STRING=1
+
+//if this lib is around or not
+HAVE_LIBSQLITE3:STRING=1
+
+//if this lib is around or not
 HAVE_LIBZLIB:STRING=1
 
 //Path to a file.
 JPEG_INCLUDE_DIR:PATH=/usr/include
 
 //Path to a library.
-JPEG_LIBRARY:FILEPATH=JPEG_LIBRARY-NOTFOUND
+JPEG_LIBRARY:FILEPATH=/usr/local/Qt-5.4.1/plugins/imageformats/libqjpeg.so
 
 //No help, variable specified on the command line.
 LIRC_DEVICE:UNINITIALIZED=/run/lirc/lircd
+
+//Path to a file.
+LZO2_INCLUDE_DIR:PATH=LZO2_INCLUDE_DIR-NOTFOUND
+
+//Path to a library.
+LZO2_LIBRARIES:FILEPATH=/mnt/bulk-storage/steamlink-sdk/examples/openpht/external/liblzo2/lib/aarch64-linux-gnu
 
 //No help, variable specified on the command line.
 OPENELEC:UNINITIALIZED=OFF
@@ -239,6 +254,18 @@ OpenPHT_BINARY_DIR:STATIC=/mnt/bulk-storage/steamlink-sdk/examples/openpht/openp
 //Value Computed by CMake
 OpenPHT_SOURCE_DIR:STATIC=/mnt/bulk-storage/steamlink-sdk/examples/openpht/openpht-src
 
+//Path to a file.
+PCRE_INCLUDE_DIR:PATH=/usr/include
+
+//Path to a library.
+PCRE_PCRECPP_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpcrecpp.so
+
+//Path to a library.
+PCRE_PCRE_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpcre.so
+
+//pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
 //No help, variable specified on the command line.
 PYTHON_EXEC:UNINITIALIZED=
 
@@ -247,6 +274,12 @@ SDLMAIN_LIBRARY:UNINITIALIZED=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/lib
 
 //No help, variable specified on the command line.
 SDL_INCLUDE_DIR:UNINITIALIZED=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include;/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include/SDL2
+
+//Path to a file.
+SQLITE3_INCLUDE_DIR:PATH=/usr/include
+
+//Path to a library.
+SQLITE3_LIBRARY:FILEPATH=/usr/local/Qt-5.4.1/plugins/imageformats/libqsqlite.so
 
 //No help, variable specified on the command line.
 SWIG_DIR:UNINITIALIZED=//toolchain
@@ -267,7 +300,7 @@ TARGET_POSIX:BOOL=1
 TARGET_RPI:BOOL=1
 
 //Use internal FFmpeg?
-USE_INTERNAL_FFMPEG:BOOL=OFF
+USE_INTERNAL_FFMPEG:BOOL=ON
 
 //Enable media section paging
 USE_PAGING:BOOL=ON
@@ -413,6 +446,12 @@ CMAKE_UNAME:INTERNAL=/mnt/bulk-storage/steamlink-sdk/rootfs/bin/uname
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Freetype
 FIND_PACKAGE_MESSAGE_DETAILS_Freetype:INTERNAL=[/mnt/bulk-storage/steamlink-sdk/rootfs/usr/lib/libfreetype.so][/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include/freetype2][v2.5.5()]
+//Details about finding JPEG
+FIND_PACKAGE_MESSAGE_DETAILS_JPEG:INTERNAL=[/usr/local/Qt-5.4.1/plugins/imageformats/libqjpeg.so][/usr/include][v()]
+//Details about finding PCRE
+FIND_PACKAGE_MESSAGE_DETAILS_PCRE:INTERNAL=[/usr/include][/usr/lib/x86_64-linux-gnu/libpcre.so][/usr/lib/x86_64-linux-gnu/libpcrecpp.so][v()]
+//Details about finding PkgConfig
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v0.28()]
 //Details about finding ZLIB
 FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[/mnt/bulk-storage/steamlink-sdk/rootfs/lib/libz.so][/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include][v1.2.5()]
 //ADVANCED property for variable: FREETYPE_INCLUDE_DIR_freetype2
@@ -601,10 +640,97 @@ HAVE_WCHAR_H:INTERNAL=1
 HAVE_WCTYPE_H:INTERNAL=1
 //Have function _doprnt
 HAVE__DOPRNT:INTERNAL=
+//ADVANCED property for variable: JPEG_INCLUDE_DIR
+JPEG_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: JPEG_LIBRARY
+JPEG_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LZO2_INCLUDE_DIR
+LZO2_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LZO2_LIBRARIES
+LZO2_LIBRARIES-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCRE_INCLUDE_DIR
+PCRE_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCRE_PCRECPP_LIBRARY
+PCRE_PCRECPP_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCRE_PCRE_LIBRARY
+PCRE_PCRE_LIBRARY-ADVANCED:INTERNAL=1
+PC_PCRE_CFLAGS:INTERNAL=
+PC_PCRE_CFLAGS_I:INTERNAL=
+PC_PCRE_CFLAGS_OTHER:INTERNAL=
+PC_PCRE_FOUND:INTERNAL=1
+PC_PCRE_INCLUDEDIR:INTERNAL=/usr/include
+PC_PCRE_INCLUDE_DIRS:INTERNAL=
+PC_PCRE_LDFLAGS:INTERNAL=-lpcre
+PC_PCRE_LDFLAGS_OTHER:INTERNAL=
+PC_PCRE_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+PC_PCRE_LIBRARIES:INTERNAL=pcre
+PC_PCRE_LIBRARY_DIRS:INTERNAL=
+PC_PCRE_LIBS:INTERNAL=
+PC_PCRE_LIBS_L:INTERNAL=
+PC_PCRE_LIBS_OTHER:INTERNAL=
+PC_PCRE_LIBS_PATHS:INTERNAL=
+PC_PCRE_PREFIX:INTERNAL=/usr
+PC_PCRE_STATIC_CFLAGS:INTERNAL=
+PC_PCRE_STATIC_CFLAGS_I:INTERNAL=
+PC_PCRE_STATIC_CFLAGS_OTHER:INTERNAL=
+PC_PCRE_STATIC_INCLUDE_DIRS:INTERNAL=
+PC_PCRE_STATIC_LDFLAGS:INTERNAL=-lpcre
+PC_PCRE_STATIC_LDFLAGS_OTHER:INTERNAL=
+PC_PCRE_STATIC_LIBDIR:INTERNAL=
+PC_PCRE_STATIC_LIBRARIES:INTERNAL=pcre
+PC_PCRE_STATIC_LIBRARY_DIRS:INTERNAL=
+PC_PCRE_STATIC_LIBS:INTERNAL=
+PC_PCRE_STATIC_LIBS_L:INTERNAL=
+PC_PCRE_STATIC_LIBS_OTHER:INTERNAL=
+PC_PCRE_STATIC_LIBS_PATHS:INTERNAL=
+PC_PCRE_VERSION:INTERNAL=8.35
+PC_PCRE_libpcre_INCLUDEDIR:INTERNAL=
+PC_PCRE_libpcre_LIBDIR:INTERNAL=
+PC_PCRE_libpcre_PREFIX:INTERNAL=
+PC_PCRE_libpcre_VERSION:INTERNAL=
+//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
+PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ZLIB_INCLUDE_DIR
 ZLIB_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ZLIB_LIBRARY_DEBUG
 ZLIB_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ZLIB_LIBRARY_RELEASE
 ZLIB_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+_SQLITE3_CFLAGS:INTERNAL=
+_SQLITE3_CFLAGS_I:INTERNAL=
+_SQLITE3_CFLAGS_OTHER:INTERNAL=
+_SQLITE3_FOUND:INTERNAL=1
+_SQLITE3_INCLUDEDIR:INTERNAL=/usr/include
+_SQLITE3_INCLUDE_DIRS:INTERNAL=
+_SQLITE3_LDFLAGS:INTERNAL=-lsqlite3
+_SQLITE3_LDFLAGS_OTHER:INTERNAL=
+_SQLITE3_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+_SQLITE3_LIBRARIES:INTERNAL=sqlite3
+_SQLITE3_LIBRARY_DIRS:INTERNAL=
+_SQLITE3_LIBS:INTERNAL=
+_SQLITE3_LIBS_L:INTERNAL=
+_SQLITE3_LIBS_OTHER:INTERNAL=
+_SQLITE3_LIBS_PATHS:INTERNAL=
+_SQLITE3_PREFIX:INTERNAL=/usr
+_SQLITE3_STATIC_CFLAGS:INTERNAL=
+_SQLITE3_STATIC_CFLAGS_I:INTERNAL=
+_SQLITE3_STATIC_CFLAGS_OTHER:INTERNAL=
+_SQLITE3_STATIC_INCLUDE_DIRS:INTERNAL=
+_SQLITE3_STATIC_LDFLAGS:INTERNAL=-lsqlite3;-ldl;-lpthread
+_SQLITE3_STATIC_LDFLAGS_OTHER:INTERNAL=
+_SQLITE3_STATIC_LIBDIR:INTERNAL=
+_SQLITE3_STATIC_LIBRARIES:INTERNAL=sqlite3;dl;pthread
+_SQLITE3_STATIC_LIBRARY_DIRS:INTERNAL=
+_SQLITE3_STATIC_LIBS:INTERNAL=
+_SQLITE3_STATIC_LIBS_L:INTERNAL=
+_SQLITE3_STATIC_LIBS_OTHER:INTERNAL=
+_SQLITE3_STATIC_LIBS_PATHS:INTERNAL=
+_SQLITE3_VERSION:INTERNAL=3.8.7.1
+_SQLITE3_sqlite3_INCLUDEDIR:INTERNAL=
+_SQLITE3_sqlite3_LIBDIR:INTERNAL=
+_SQLITE3_sqlite3_PREFIX:INTERNAL=
+_SQLITE3_sqlite3_VERSION:INTERNAL=
+__pkg_config_checked_PC_PCRE:INTERNAL=1
+__pkg_config_checked__SQLITE3:INTERNAL=1
+prefix_result:INTERNAL=/usr/lib/x86_64-linux-gnu
 

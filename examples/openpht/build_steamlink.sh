@@ -1,8 +1,8 @@
 #!/bin/bash
 
-
 TOP="${PWD}"
 SRC="${TOP}/openpht-src"
+EXTERNAL_LIBS="${TOP}/external"
 INSTALL_DIR="${TOP}/openpht-final"
 BRANCH="steamlink-openpht-1.7"
 
@@ -22,7 +22,6 @@ fi
 ###################################
 
 source "${TOP}/../../setenv.sh"
-
 pushd "${SRC}"
 
 ## TODO ##
@@ -42,16 +41,19 @@ cmake -G Ninja \
 	-DCMAKE_INCLUDE_PATH="$MARVELL_ROOTFS/usr/include;$MARVELL_ROOTFS/usr/include/python2.7" \
 	-DSDLMAIN_LIBRARY="$MARVELL_ROOTFS/usr/lib" \
 	-DSDL_INCLUDE_DIR="$MARVELL_ROOTFS/usr/include;$MARVELL_ROOTFS/usr/include/SDL2" \
+	-DJPEG_LIBRARY="$MARVEL_ROOTFS/usr/local/Qt-5.4.1/plugins/imageformats/libqjpeg.so" \
+	-DSQLITE3_LIBRARY="$MARVEL_ROOTFS/usr/local/Qt-5.4.1/plugins/imageformats/libqsqlite.so" \
+	-DLZO2_LIBRARIES="$EXTERNAL_LIBS/liblzo2/lib/aarch64-linux-gnu" \
 	-DCOMPRESS_TEXTURES=OFF \
 	-DENABLE_DUMP_SYMBOLS=ON \
 	-DENABLE_AUTOUPDATE=ON \
 	-DTARGET_PLATFORM=STEAMLINK \
-	-DUSE_INTERNAL_FFMPEG=OFF \
+	-DUSE_INTERNAL_FFMPEG=ON \
 	-DOPENELEC=OFF \
 	-DENABLE_VDPAU=$ENABLE_VDPAU \
 	-DENABLE_VAAPI=$ENABLE_VAAPI \
 	-DLIRC_DEVICE=/run/lirc/lircd \
-	-DCMAKE_INSTALL_PREFIX=/usr/lib/plexht \
+	-DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
 	-DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE \
 	..
 
