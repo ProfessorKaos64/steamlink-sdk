@@ -170,9 +170,6 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 //Path to a program.
 CMAKE_STRIP:FILEPATH=/usr/bin/strip
 
-//No help, variable specified on the command line.
-CMAKE_TOOLCHAIN_FILE:UNINITIALIZED=
-
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
 // during the make.  This is useful for debugging only. With Visual
@@ -221,6 +218,15 @@ FREETYPE_LIBRARY:FILEPATH=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/lib/libfree
 //if this lib is around or not
 HAVE_LIBFREETYPE:STRING=1
 
+//if this lib is around or not
+HAVE_LIBZLIB:STRING=1
+
+//Path to a file.
+JPEG_INCLUDE_DIR:PATH=/usr/include
+
+//Path to a library.
+JPEG_LIBRARY:FILEPATH=JPEG_LIBRARY-NOTFOUND
+
 //No help, variable specified on the command line.
 LIRC_DEVICE:UNINITIALIZED=/run/lirc/lircd
 
@@ -236,14 +242,11 @@ OpenPHT_SOURCE_DIR:STATIC=/mnt/bulk-storage/steamlink-sdk/examples/openpht/openp
 //No help, variable specified on the command line.
 PYTHON_EXEC:UNINITIALIZED=
 
-//Path to a library.
-SDLMAIN_LIBRARY:FILEPATH=SDLMAIN_LIBRARY-NOTFOUND
+//No help, variable specified on the command line.
+SDLMAIN_LIBRARY:UNINITIALIZED=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/lib
 
-//Path to a file.
-SDL_INCLUDE_DIR:PATH=/usr/include/SDL
-
-//Path to a library.
-SDL_LIBRARY_TEMP:FILEPATH=SDL_LIBRARY_TEMP-NOTFOUND
+//No help, variable specified on the command line.
+SDL_INCLUDE_DIR:UNINITIALIZED=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include;/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include/SDL2
 
 //No help, variable specified on the command line.
 SWIG_DIR:UNINITIALIZED=//toolchain
@@ -254,20 +257,29 @@ SWIG_EXECUTABLE:UNINITIALIZED=/usr/bin/swig
 //Common Linux platforms
 TARGET_COMMON_LINUX:BOOL=1
 
-//Target is Linux
-TARGET_LINUX:BOOL=1
-
 //Platform string
-TARGET_PLATFORM:STRING=LINUX
+TARGET_PLATFORM:STRING=STEAMLINK
 
 //POSIX platform
 TARGET_POSIX:BOOL=1
+
+//Target is Steam Link
+TARGET_RPI:BOOL=1
 
 //Use internal FFmpeg?
 USE_INTERNAL_FFMPEG:BOOL=OFF
 
 //Enable media section paging
 USE_PAGING:BOOL=ON
+
+//Path to a file.
+ZLIB_INCLUDE_DIR:PATH=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include
+
+//Path to a library.
+ZLIB_LIBRARY_DEBUG:FILEPATH=ZLIB_LIBRARY_DEBUG-NOTFOUND
+
+//Path to a library.
+ZLIB_LIBRARY_RELEASE:FILEPATH=/mnt/bulk-storage/steamlink-sdk/rootfs/lib/libz.so
 
 
 ########################
@@ -338,14 +350,6 @@ CMAKE_GENERATOR:INTERNAL=Ninja
 CMAKE_GENERATOR_PLATFORM:INTERNAL=
 //Name of generator toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
-//Have symbol pthread_create
-CMAKE_HAVE_LIBC_CREATE:INTERNAL=
-//Have library pthreads
-CMAKE_HAVE_PTHREADS_CREATE:INTERNAL=
-//Have library pthread
-CMAKE_HAVE_PTHREAD_CREATE:INTERNAL=1
-//Have include pthread.h
-CMAKE_HAVE_PTHREAD_H:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=/mnt/bulk-storage/steamlink-sdk/examples/openpht/openpht-src
@@ -409,8 +413,8 @@ CMAKE_UNAME:INTERNAL=/mnt/bulk-storage/steamlink-sdk/rootfs/bin/uname
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Freetype
 FIND_PACKAGE_MESSAGE_DETAILS_Freetype:INTERNAL=[/mnt/bulk-storage/steamlink-sdk/rootfs/usr/lib/libfreetype.so][/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include/freetype2][v2.5.5()]
-//Details about finding Threads
-FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//Details about finding ZLIB
+FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[/mnt/bulk-storage/steamlink-sdk/rootfs/lib/libz.so][/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include][v1.2.5()]
 //ADVANCED property for variable: FREETYPE_INCLUDE_DIR_freetype2
 FREETYPE_INCLUDE_DIR_freetype2-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: FREETYPE_INCLUDE_DIR_ft2build
@@ -597,4 +601,10 @@ HAVE_WCHAR_H:INTERNAL=1
 HAVE_WCTYPE_H:INTERNAL=1
 //Have function _doprnt
 HAVE__DOPRNT:INTERNAL=
+//ADVANCED property for variable: ZLIB_INCLUDE_DIR
+ZLIB_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ZLIB_LIBRARY_DEBUG
+ZLIB_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ZLIB_LIBRARY_RELEASE
+ZLIB_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 

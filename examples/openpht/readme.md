@@ -8,22 +8,22 @@ It was tested on Debian Jessie with additional packages at packages.libregeek.or
 
 ## Current error
 
-Missing SDL2?
+Missing JPEG library?
 
 ```
 CMake Error at /usr/share/cmake-3.6/Modules/FindPackageHandleStandardArgs.cmake:148 (message):
-  Could NOT find SDL (missing: SDL_LIBRARY) (found version "1.2.15")
+  Could NOT find JPEG (missing: JPEG_LIBRARY)
 Call Stack (most recent call first):
   /usr/share/cmake-3.6/Modules/FindPackageHandleStandardArgs.cmake:388 (_FPHSA_FAILURE_MESSAGE)
-  /usr/share/cmake-3.6/Modules/FindSDL.cmake:199 (FIND_PACKAGE_HANDLE_STANDARD_ARGS)
+  /usr/share/cmake-3.6/Modules/FindJPEG.cmake:42 (FIND_PACKAGE_HANDLE_STANDARD_ARGS)
   plex/CMakeModules/CMakeFunctions.cmake:143 (find_package)
-  plex/CMakeModules/PlatformConfigLINUX.cmake:63 (plex_find_package)
+  plex/CMakeModules/PlatformConfigSTEAMLINK.cmake:45 (plex_find_package)
   plex/CMakeModules/CMakeConfig.cmake:82 (include)
   CMakeLists.txt:55 (include)
 
 
 -- Configuring incomplete, errors occurred!
-See also "/mnt/bulk-storage/steamlink-sdk/ex
+
 ```
 =======
 ## TODO (known)
