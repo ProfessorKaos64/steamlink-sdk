@@ -6,21 +6,6 @@ It was tested on Debian Jessie with additional packages at packages.libregeek.or
 
 # Scratch/WIP notes
 
-## Current error
-
-Trouble finding lzo lib, see: openpht-src/plex/CMakeModules/FindLzo2.cmake
-
-```
-CMake Error at plex/CMakeModules/CMakeFunctions.cmake:178 (message):
-  Missing LZO2
-Call Stack (most recent call first):
-  plex/CMakeModules/PlatformConfigSTEAMLINK.cmake:45 (plex_find_package)
-  plex/CMakeModules/CMakeConfig.cmake:82 (include)
-  CMakeLists.txt:55 (include)
-
-
--- Configuring incomplete, errors occurred!
-```
 =======
 ## TODO (known)
 
