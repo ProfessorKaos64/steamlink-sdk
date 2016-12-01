@@ -83,13 +83,13 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=OFF
 
 //No help, variable specified on the command line.
-CMAKE_INCLUDE_PATH:UNINITIALIZED=/usr/include;/usr/include/python2.7
+CMAKE_INCLUDE_PATH:UNINITIALIZED=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include;/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include/python2.7
 
 //Install path prefix, prepended onto install directories.
 CMAKE_INSTALL_PREFIX:PATH=/usr/lib/plexht
 
 //No help, variable specified on the command line.
-CMAKE_LIBRARY_PATH:UNINITIALIZED=/usr/lib
+CMAKE_LIBRARY_PATH:UNINITIALIZED=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/lib
 
 //Path to a program.
 CMAKE_LINKER:FILEPATH=/usr/bin/ld
@@ -122,7 +122,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //No help, variable specified on the command line.
-CMAKE_PREFIX_PATH:UNINITIALIZED=
+CMAKE_PREFIX_PATH:UNINITIALIZED=/mnt/bulk-storage/steamlink-sdk/rootfs
 
 //Value Computed by CMake
 CMAKE_PROJECT_NAME:STATIC=OpenPHT
@@ -207,22 +207,25 @@ ENABLE_VAAPI:UNINITIALIZED=
 ENABLE_VDPAU:UNINITIALIZED=
 
 //No help, variable specified on the command line.
-EXTERNAL_PYTHON_HOME:UNINITIALIZED=/usr
+EXTERNAL_PYTHON_HOME:UNINITIALIZED=/mnt/bulk-storage/steamlink-sdk/rootfs/usr
 
 //Path to a file.
-FREETYPE_INCLUDE_DIR_freetype2:PATH=/usr/include/freetype2
+FREETYPE_INCLUDE_DIR_freetype2:PATH=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include/freetype2
 
 //Path to a file.
-FREETYPE_INCLUDE_DIR_ft2build:PATH=/usr/include/freetype2
+FREETYPE_INCLUDE_DIR_ft2build:PATH=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include/freetype2
 
 //Path to a library.
-FREETYPE_LIBRARY:FILEPATH=FREETYPE_LIBRARY-NOTFOUND
+FREETYPE_LIBRARY:FILEPATH=/mnt/bulk-storage/steamlink-sdk/rootfs/usr/lib/libfreetype.so
+
+//if this lib is around or not
+HAVE_LIBFREETYPE:STRING=1
 
 //No help, variable specified on the command line.
 LIRC_DEVICE:UNINITIALIZED=/run/lirc/lircd
 
 //No help, variable specified on the command line.
-OPENELEC:UNINITIALIZED=ON
+OPENELEC:UNINITIALIZED=OFF
 
 //Value Computed by CMake
 OpenPHT_BINARY_DIR:STATIC=/mnt/bulk-storage/steamlink-sdk/examples/openpht/openpht-src/build
@@ -231,7 +234,16 @@ OpenPHT_BINARY_DIR:STATIC=/mnt/bulk-storage/steamlink-sdk/examples/openpht/openp
 OpenPHT_SOURCE_DIR:STATIC=/mnt/bulk-storage/steamlink-sdk/examples/openpht/openpht-src
 
 //No help, variable specified on the command line.
-PYTHON_EXEC:UNINITIALIZED=/usr/bin/python2.7
+PYTHON_EXEC:UNINITIALIZED=
+
+//Path to a library.
+SDLMAIN_LIBRARY:FILEPATH=SDLMAIN_LIBRARY-NOTFOUND
+
+//Path to a file.
+SDL_INCLUDE_DIR:PATH=/usr/include/SDL
+
+//Path to a library.
+SDL_LIBRARY_TEMP:FILEPATH=SDL_LIBRARY_TEMP-NOTFOUND
 
 //No help, variable specified on the command line.
 SWIG_DIR:UNINITIALIZED=//toolchain
@@ -326,6 +338,14 @@ CMAKE_GENERATOR:INTERNAL=Ninja
 CMAKE_GENERATOR_PLATFORM:INTERNAL=
 //Name of generator toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
+//Have symbol pthread_create
+CMAKE_HAVE_LIBC_CREATE:INTERNAL=
+//Have library pthreads
+CMAKE_HAVE_PTHREADS_CREATE:INTERNAL=
+//Have library pthread
+CMAKE_HAVE_PTHREAD_CREATE:INTERNAL=1
+//Have include pthread.h
+CMAKE_HAVE_PTHREAD_H:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=/mnt/bulk-storage/steamlink-sdk/examples/openpht/openpht-src
@@ -384,9 +404,19 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_STRIP
 CMAKE_STRIP-ADVANCED:INTERNAL=1
 //uname command
-CMAKE_UNAME:INTERNAL=/mnt/bulk-storage/steamlink-sdk/bin/uname
+CMAKE_UNAME:INTERNAL=/mnt/bulk-storage/steamlink-sdk/rootfs/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding Freetype
+FIND_PACKAGE_MESSAGE_DETAILS_Freetype:INTERNAL=[/mnt/bulk-storage/steamlink-sdk/rootfs/usr/lib/libfreetype.so][/mnt/bulk-storage/steamlink-sdk/rootfs/usr/include/freetype2][v2.5.5()]
+//Details about finding Threads
+FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//ADVANCED property for variable: FREETYPE_INCLUDE_DIR_freetype2
+FREETYPE_INCLUDE_DIR_freetype2-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: FREETYPE_INCLUDE_DIR_ft2build
+FREETYPE_INCLUDE_DIR_ft2build-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: FREETYPE_LIBRARY
+FREETYPE_LIBRARY-ADVANCED:INTERNAL=1
 //Have function alarm
 HAVE_ALARM:INTERNAL=1
 //Have include arpa/inet.h

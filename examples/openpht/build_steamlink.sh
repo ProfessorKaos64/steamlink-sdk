@@ -1,9 +1,9 @@
 #!/bin/bash
 
 
-
 TOP="${PWD}"
 SRC="${TOP}/openpht-src"
+INSTALL_DIR="${TOP}/openpht-final"
 BRANCH="steamlink-openpht-1.7"
 
 ###################################
@@ -29,24 +29,23 @@ pushd "${SRC}"
 # Fix up where various vars were set in OpenPHT embedded.
 # Determine fully what is needed dep-wise
 
-export PYTHON_EXEC="$SYSROOT_PREFIX/usr/bin/python2.7"
 rm -rf build && mkdir build
 cd build
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
 	-DENABLE_PYTHON=ON \
-	-DEXTERNAL_PYTHON_HOME="$SYSROOT_PREFIX/usr" \
+	-DEXTERNAL_PYTHON_HOME="$MARVELL_ROOTFS/usr" \
 	-DPYTHON_EXEC="$PYTHON_EXEC" \
 	-DSWIG_EXECUTABLE=`which swig` \
 	-DSWIG_DIR="$ROOT/$BUILD/toolchain" \
-	-DCMAKE_PREFIX_PATH="$SYSROOT_PREFIX" \
-	-DCMAKE_LIBRARY_PATH="$SYSROOT_PREFIX/usr/lib" \
-	-DCMAKE_INCLUDE_PATH="$SYSROOT_PREFIX/usr/include;$SYSROOT_PREFIX/usr/include/python2.7" \
+	-DCMAKE_PREFIX_PATH="$MARVELL_ROOTFS" \
+	-DCMAKE_LIBRARY_PATH="$MARVELL_ROOTFS/usr/lib" \
+	-DCMAKE_INCLUDE_PATH="$MARVELL_ROOTFS/usr/include;$MARVELL_ROOTFS/usr/include/python2.7" \
 	-DCOMPRESS_TEXTURES=OFF \
 	-DENABLE_DUMP_SYMBOLS=ON \
 	-DENABLE_AUTOUPDATE=ON \
 	-DTARGET_PLATFORM=LINUX \
 	-DUSE_INTERNAL_FFMPEG=OFF \
-	-DOPENELEC=ON \
+	-DOPENELEC=OFF \
 	-DENABLE_VDPAU=$ENABLE_VDPAU \
 	-DENABLE_VAAPI=$ENABLE_VAAPI \
 	-DLIRC_DEVICE=/run/lirc/lircd \
