@@ -28,6 +28,10 @@ pushd "${SRC}"
 # Fix up where various vars were set in OpenPHT embedded.
 # Determine fully what is needed dep-wise
 
+# Need to compile jpeg/libjpeg??
+# See: external/SDL2_image-2.0.1/external/jpeg-9
+# Without it, JPEG_LIBRARY and JPEG_INCLUDE_DIR cannot be defined below.
+
 rm -rf build && mkdir build
 cd build
 cmake -G Ninja \

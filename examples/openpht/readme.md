@@ -4,26 +4,22 @@
 
 It was tested on Debian Jessie with additional packages at packages.libregeek.org:
 
-# Scrath notes
+# Scratch/WIP notes
 
 ## Current error
 
-Missing JPEG library?
+Trouble finding lzo lib, see: openpht-src/plex/CMakeModules/FindLzo2.cmake
 
 ```
-CMake Error at /usr/share/cmake-3.6/Modules/FindPackageHandleStandardArgs.cmake:148 (message):
-  Could NOT find JPEG (missing: JPEG_LIBRARY)
+CMake Error at plex/CMakeModules/CMakeFunctions.cmake:178 (message):
+  Missing LZO2
 Call Stack (most recent call first):
-  /usr/share/cmake-3.6/Modules/FindPackageHandleStandardArgs.cmake:388 (_FPHSA_FAILURE_MESSAGE)
-  /usr/share/cmake-3.6/Modules/FindJPEG.cmake:42 (FIND_PACKAGE_HANDLE_STANDARD_ARGS)
-  plex/CMakeModules/CMakeFunctions.cmake:143 (find_package)
   plex/CMakeModules/PlatformConfigSTEAMLINK.cmake:45 (plex_find_package)
   plex/CMakeModules/CMakeConfig.cmake:82 (include)
   CMakeLists.txt:55 (include)
 
 
 -- Configuring incomplete, errors occurred!
-
 ```
 =======
 ## TODO (known)
