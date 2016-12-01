@@ -30,7 +30,9 @@ pushd "${SRC}"
 # Determine fully what is needed dep-wise
 
 export PYTHON_EXEC="$SYSROOT_PREFIX/usr/bin/python2.7"
-cmake -G ninja -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
+rm -rf build && mkdir build
+cd build
+cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
 	-DENABLE_PYTHON=ON \
 	-DEXTERNAL_PYTHON_HOME="$SYSROOT_PREFIX/usr" \
 	-DPYTHON_EXEC="$PYTHON_EXEC" \
