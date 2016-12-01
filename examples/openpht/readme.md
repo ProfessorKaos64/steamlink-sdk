@@ -4,7 +4,7 @@
 
 It was tested on Debian Jessie with additional packages at packages.libregeek.org:
 
-# Scrath notes
+# Scratch/WIP notes
 
 ## Current error
 
